@@ -4,8 +4,8 @@ import com.dkswjdals89.krakensearch.config.openApi.KakaoOpenApiConfig;
 import com.dkswjdals89.krakensearch.constant.OpenApiType;
 import com.dkswjdals89.krakensearch.service.openApi.SearchOpenApiService;
 import com.dkswjdals89.krakensearch.web.dto.KakaoSearchBookResponseDto;
-import com.dkswjdals89.krakensearch.web.dto.SearchBookRequestDto;
-import com.dkswjdals89.krakensearch.web.dto.SearchBookResponseDto;
+import com.dkswjdals89.krakensearch.web.dto.search.SearchBookRequestDto;
+import com.dkswjdals89.krakensearch.web.dto.search.SearchBookResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,9 @@ public class KakaoSearchOpenApiService implements SearchOpenApiService {
         HttpEntity<String> entity = new HttpEntity<String>(headers);
 
         UriComponents builder = UriComponentsBuilder.fromHttpUrl(uri)
-                .queryParam("query",requestDto.getKeyword())
+                .queryParam("query", requestDto.getKeyword())
+                .queryParam("page", requestDto.getPage())
+                .queryParam("size", requestDto.getSize())
                 .build();
 
         ResponseEntity<KakaoSearchBookResponseDto> responseEntity = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, KakaoSearchBookResponseDto.class);

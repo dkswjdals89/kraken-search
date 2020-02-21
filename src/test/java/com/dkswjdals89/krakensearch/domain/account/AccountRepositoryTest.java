@@ -41,4 +41,22 @@ public class AccountRepositoryTest {
         assertThat(account.getUserId()).isEqualTo(userId);
         assertThat(account.getPassword()).isEqualTo(password);
     }
+
+    @Test
+    public void findOneByUserIdTest() {
+        // Given
+        String userId = "dkswjdals89";
+        String password = "dkswjdals89!@";
+
+        accountRepository.save(Account.builder()
+                .userId(userId)
+                .password(password)
+                .build());
+
+        // When
+        Account findAccount = accountRepository.findOneByUserId(userId);
+
+        // Then
+        assertThat(findAccount.getUserId()).isEqualTo(userId);
+    }
 }

@@ -1,5 +1,6 @@
 package com.dkswjdals89.krakensearch.web.dto;
 
+import com.dkswjdals89.krakensearch.web.dto.search.SearchBookResponseDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -43,8 +44,8 @@ public class KakaoSearchBookResponseDto {
 
         private String isbn;
 
-        @DateTimeFormat(pattern = "yyyy-MM-dd")
-        @JsonFormat(pattern = "yyyy-MM-dd")
+        @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)
+        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
         private LocalDate datetime;
 
         private String contents;
@@ -84,6 +85,7 @@ public class KakaoSearchBookResponseDto {
         return SearchBookResponseDto.builder()
                 .items(this.documents.stream().map(documents -> documents.convertBookDto()).collect(Collectors.toList()))
                 .page(this.meta.pageableCount)
+                .size(this.meta.pageableCount)
                 .totalCount(this.meta.totalCount)
                 .build();
     }

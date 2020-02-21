@@ -1,5 +1,6 @@
 package com.dkswjdals89.krakensearch.web.dto;
 
+import com.dkswjdals89.krakensearch.web.dto.search.SearchBookResponseDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;

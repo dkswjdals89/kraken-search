@@ -1,7 +1,7 @@
 package com.dkswjdals89.krakensearch.service.openApi;
 
 import com.dkswjdals89.krakensearch.service.openApi.impl.NaverSearchOpenApiService;
-import com.dkswjdals89.krakensearch.web.dto.SearchBookRequestDto;
+import com.dkswjdals89.krakensearch.web.dto.search.SearchBookRequestDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

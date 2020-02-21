@@ -5,8 +5,8 @@ import com.dkswjdals89.krakensearch.constant.NaverSearchApiPath;
 import com.dkswjdals89.krakensearch.constant.OpenApiType;
 import com.dkswjdals89.krakensearch.service.openApi.SearchOpenApiService;
 import com.dkswjdals89.krakensearch.web.dto.NaverSearchBookResponseDto;
-import com.dkswjdals89.krakensearch.web.dto.SearchBookRequestDto;
-import com.dkswjdals89.krakensearch.web.dto.SearchBookResponseDto;
+import com.dkswjdals89.krakensearch.web.dto.search.SearchBookRequestDto;
+import com.dkswjdals89.krakensearch.web.dto.search.SearchBookResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,10 @@ public class NaverSearchOpenApiService implements SearchOpenApiService {
 
         UriComponents builder = UriComponentsBuilder.fromHttpUrl(uri)
                 .queryParam("query", requestDto.getKeyword())
+                .queryParam("start", requestDto.getPage())
+                .queryParam("display", requestDto.getSize())
                 .build();
+
         ResponseEntity<NaverSearchBookResponseDto> responseEntity = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, NaverSearchBookResponseDto.class);
         return responseEntity.getBody().convertSearchBookResponse();
     }

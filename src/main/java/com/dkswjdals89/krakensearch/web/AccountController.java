@@ -1,21 +1,24 @@
 package com.dkswjdals89.krakensearch.web;
 
-import com.dkswjdals89.krakensearch.config.BookSearchConfig;
-import com.dkswjdals89.krakensearch.config.openApi.KakaoOpenApiConfig;
-import com.dkswjdals89.krakensearch.service.openApi.impl.KakaoSearchOpenApiService;
+import com.dkswjdals89.krakensearch.service.account.AccountService;
+import com.dkswjdals89.krakensearch.web.dto.account.AccountCreateRequestDto;
+import com.dkswjdals89.krakensearch.web.dto.account.AccountDetailDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/account")
 public class AccountController {
-    private final KakaoOpenApiConfig kakaoOpenApiConfig;
-    private final BookSearchConfig bookSearchConfig;
-    private final KakaoSearchOpenApiService kakaoOpenApiService;
+    private final AccountService accountService;
 
-    @GetMapping("/account")
-    public String Test() {
-        return kakaoOpenApiConfig.toString();
+    @PostMapping("/create")
+    public AccountDetailDto createAccount(@RequestBody @Valid AccountCreateRequestDto requestDto) throws Exception {
+        return accountService.joinAccount(requestDto);
     }
 }

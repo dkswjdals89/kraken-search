@@ -1,5 +1,6 @@
-package com.dkswjdals89.krakensearch.web.dto;
+package com.dkswjdals89.krakensearch.web.dto.search;
 
+import com.dkswjdals89.krakensearch.web.dto.BookDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

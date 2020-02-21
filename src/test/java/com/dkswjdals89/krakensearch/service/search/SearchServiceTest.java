@@ -2,8 +2,8 @@ package com.dkswjdals89.krakensearch.service.search;
 
 import com.dkswjdals89.krakensearch.service.openApi.impl.KakaoSearchOpenApiService;
 import com.dkswjdals89.krakensearch.service.openApi.impl.NaverSearchOpenApiService;
-import com.dkswjdals89.krakensearch.web.dto.SearchBookRequestDto;
-import com.dkswjdals89.krakensearch.web.dto.SearchBookResponseDto;
+import com.dkswjdals89.krakensearch.web.dto.search.SearchBookRequestDto;
+import com.dkswjdals89.krakensearch.web.dto.search.SearchBookResponseDto;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
