@@ -1,5 +1,7 @@
 package com.dkswjdals89.krakensearch.service.account;
 
+import com.dkswjdals89.krakensearch.ServiceException;
+import com.dkswjdals89.krakensearch.constant.ServiceError;
 import com.dkswjdals89.krakensearch.domain.account.Account;
 import com.dkswjdals89.krakensearch.domain.account.AccountRepository;
 import com.dkswjdals89.krakensearch.web.dto.account.AccountCreateRequestDto;
@@ -17,10 +19,11 @@ public class AccountService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public AccountDetailDto joinAccount(AccountCreateRequestDto requestDto) throws Exception {
+    public AccountDetailDto joinAccount(AccountCreateRequestDto requestDto) {
         Account beforeAccount = accountRepository.findOneByUserId(requestDto.getUserId());
+
         if (beforeAccount != null) {
-            throw new Exception("이미 존재하는 ID 입니다.");
+            throw new ServiceException(ServiceError.DUPLICATED_ERROR, "이미 존재하는 ID 입니다.");
         }
 
         Account createdAccount = accountRepository.save(Account.builder()

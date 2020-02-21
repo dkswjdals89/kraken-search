@@ -27,7 +27,7 @@ public class Account extends BaseTimeEntity {
 
     private String email;
 
-    private Boolean activated;
+    private Boolean activated = true;
 
     @Builder
     public Account(Long id, String userId, String password, String firstName, String lastName, String email, Boolean activated) {

@@ -1,5 +1,6 @@
 package com.dkswjdals89.krakensearch.domain.searchHistory;
 
+import com.dkswjdals89.krakensearch.domain.BaseTimeEntity;
 import com.dkswjdals89.krakensearch.domain.account.Account;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Entity
-public class SearchHistory {
+public class SearchHistory extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -9,11 +9,11 @@ import javax.validation.constraints.Size;
 @Data
 public class AccountCreateRequestDto {
     @NotEmpty(message = "Required data")
-    @Size(min = 3, max = 20, message = "Length must be in range(6~20)")
+    @Size(min = 3, max = 20, message = "UserId Length must be in range({min} ~ {max})")
     private String userId;
 
     @NotEmpty(message = "Required data")
-    @Size(min = 6, max = 20, message = "Length must be in range(6~20)")
+    @Size(min = 6, max = 20, message = "Password Length must be in range({min} ~ {max})")
     private String password;
 
     @Builder

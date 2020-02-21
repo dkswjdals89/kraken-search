@@ -11,7 +11,7 @@ import javax.validation.constraints.NotEmpty;
 @Data
 @NoArgsConstructor
 public class SearchBookRequestDto {
-    @NotEmpty(message = "Required data")
+    @NotEmpty(message = "keyword is required data field")
     private String keyword;
 
     @Min(1)
