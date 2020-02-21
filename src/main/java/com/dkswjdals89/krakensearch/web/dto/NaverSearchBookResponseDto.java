@@ -55,8 +55,10 @@ public class NaverSearchBookResponseDto {
         private String title;
 
         public BookDto convertBookDto() {
+            final String htmlTagRemoveRegEx = "<[^>]*>";
             return BookDto.builder()
-                    .title(this.title)
+                    .title(this.title.replaceAll(htmlTagRemoveRegEx, ""))
+                    .content(this.description.replaceAll(htmlTagRemoveRegEx, ""))
                     .url(this.link)
                     .thumbnail(this.image)
                     .salePrice(this.discount)
@@ -64,7 +66,6 @@ public class NaverSearchBookResponseDto {
                     .price(this.price)
                     .isbn(this.isbn)
                     .datetime(this.pubdate)
-                    .content(this.description)
                     .authors(Arrays.stream(this.author.split("|")).collect(Collectors.toList()))
                     .build();
         }
