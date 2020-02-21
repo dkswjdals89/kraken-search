@@ -73,7 +73,9 @@ public class NaverSearchBookResponseDto {
 
     public SearchBookResponseDto convertSearchBookResponse(SearchBookRequestDto requestDto) {
         return SearchBookResponseDto.builder()
-                .items(this.items.stream().map(documents -> documents.convertBookDto()).collect(Collectors.toList()))
+                .items(this.items.stream()
+                        .map(Items::convertBookDto)
+                        .collect(Collectors.toList()))
                 .totalPage(PagingUtils.calculatorTotalPageCount(this.total, requestDto.getSize()))
                 .page(requestDto.getPage())
                 .size(requestDto.getSize())

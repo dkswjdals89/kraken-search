@@ -4,9 +4,7 @@ import com.dkswjdals89.krakensearch.web.dto.BookDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Getter

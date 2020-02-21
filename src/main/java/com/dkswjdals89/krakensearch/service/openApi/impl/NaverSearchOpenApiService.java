@@ -1,6 +1,5 @@
 package com.dkswjdals89.krakensearch.service.openApi.impl;
 
-import com.dkswjdals89.krakensearch.component.PagingUtils;
 import com.dkswjdals89.krakensearch.config.openApi.NaverOpenApiConfig;
 import com.dkswjdals89.krakensearch.constant.NaverSearchApiPath;
 import com.dkswjdals89.krakensearch.constant.OpenApiType;

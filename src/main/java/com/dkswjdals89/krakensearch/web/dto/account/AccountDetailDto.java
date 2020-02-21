@@ -1,11 +1,11 @@
 package com.dkswjdals89.krakensearch.web.dto.account;
 
 import com.dkswjdals89.krakensearch.domain.account.Account;
-import lombok.Getter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Getter
+@Data
 public class AccountDetailDto {
     private long id;
     private String userId;

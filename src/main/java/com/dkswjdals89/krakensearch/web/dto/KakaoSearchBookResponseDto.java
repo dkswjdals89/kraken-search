@@ -85,7 +85,9 @@ public class KakaoSearchBookResponseDto {
 
     public SearchBookResponseDto convertSearchBookResponse(SearchBookRequestDto requestDto) {
         return SearchBookResponseDto.builder()
-                .items(this.documents.stream().map(documents -> documents.convertBookDto()).collect(Collectors.toList()))
+                .items(this.documents.stream()
+                        .map(Documents::convertBookDto)
+                        .collect(Collectors.toList()))
                 .totalPage(PagingUtils.calculatorTotalPageCount(this.meta.totalCount, requestDto.getSize()))
                 .totalCount(this.meta.totalCount)
                 .page(requestDto.getPage())

@@ -5,6 +5,7 @@ import com.dkswjdals89.krakensearch.domain.account.AccountRepository;
 import com.dkswjdals89.krakensearch.web.dto.account.AccountCreateRequestDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -35,12 +36,15 @@ public class AccountServiceTest {
         // Given
         String userId = "dkswjdals89";
         String password = "dkswjdals89!@";
+        String expectedEncPawword = "encodePassword";
 
         AccountCreateRequestDto requestDto = AccountCreateRequestDto.builder()
                 .userId(userId)
                 .password(password)
                 .build();
 
+        when(passwordEncoder.encode(password))
+                .thenReturn(expectedEncPawword);
         when(accountRepository.save(any()))
                 .thenReturn(Account.builder()
                         .id(Long.valueOf(1))
@@ -48,11 +52,13 @@ public class AccountServiceTest {
                         .password(password)
                         .build());
 
-
         accountService.joinAccount(requestDto);
 
         // Then
-        verify(accountRepository).save(any());
+        verify(accountRepository).save(ArgumentMatchers.refEq(Account.builder()
+                .userId(userId)
+                .password(expectedEncPawword)
+        .build()));
     }
 
     @Test

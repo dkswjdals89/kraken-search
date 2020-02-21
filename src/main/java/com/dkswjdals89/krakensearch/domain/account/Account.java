@@ -1,12 +1,15 @@
 package com.dkswjdals89.krakensearch.domain.account;
 
 import com.dkswjdals89.krakensearch.domain.BaseTimeEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity(name = "tlb_account")
@@ -27,16 +30,5 @@ public class Account extends BaseTimeEntity {
 
     private String email;
 
-    private Boolean activated = true;
-
-    @Builder
-    public Account(Long id, String userId, String password, String firstName, String lastName, String email, Boolean activated) {
-        this.id = id;
-        this.userId = userId;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.activated = activated;
-    }
+    private Boolean activated;
 }
