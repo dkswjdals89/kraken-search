@@ -1,5 +1,6 @@
 package com.dkswjdals89.krakensearch.service.openApi.impl;
 
+import com.dkswjdals89.krakensearch.component.PagingUtils;
 import com.dkswjdals89.krakensearch.config.openApi.NaverOpenApiConfig;
 import com.dkswjdals89.krakensearch.constant.NaverSearchApiPath;
 import com.dkswjdals89.krakensearch.constant.OpenApiType;
@@ -36,6 +37,6 @@ public class NaverSearchOpenApiService implements SearchOpenApiService {
                 .build();
 
         ResponseEntity<NaverSearchBookResponseDto> responseEntity = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, NaverSearchBookResponseDto.class);
-        return responseEntity.getBody().convertSearchBookResponse();
+        return responseEntity.getBody().convertSearchBookResponse(requestDto);
     }
 }

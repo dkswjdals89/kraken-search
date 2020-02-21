@@ -1,5 +1,7 @@
 package com.dkswjdals89.krakensearch.web.dto;
 
+import com.dkswjdals89.krakensearch.component.PagingUtils;
+import com.dkswjdals89.krakensearch.web.dto.search.SearchBookRequestDto;
 import com.dkswjdals89.krakensearch.web.dto.search.SearchBookResponseDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -68,10 +70,13 @@ public class NaverSearchBookResponseDto {
         }
     }
 
-    public SearchBookResponseDto convertSearchBookResponse() {
+    public SearchBookResponseDto convertSearchBookResponse(SearchBookRequestDto requestDto) {
         return SearchBookResponseDto.builder()
                 .items(this.items.stream().map(documents -> documents.convertBookDto()).collect(Collectors.toList()))
-                .page(0)
+                .totalPage(PagingUtils.calculatorTotalPageCount(this.total, requestDto.getSize()))
+                .page(requestDto.getPage())
+                .size(requestDto.getSize())
+                .count(this.display)
                 .totalCount(this.total)
                 .build();
     }

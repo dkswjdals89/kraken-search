@@ -1,5 +1,7 @@
 package com.dkswjdals89.krakensearch.web.dto;
 
+import com.dkswjdals89.krakensearch.component.PagingUtils;
+import com.dkswjdals89.krakensearch.web.dto.search.SearchBookRequestDto;
 import com.dkswjdals89.krakensearch.web.dto.search.SearchBookResponseDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -81,12 +83,14 @@ public class KakaoSearchBookResponseDto {
         private boolean isEnd;
     }
 
-    public SearchBookResponseDto convertSearchBookResponse() {
+    public SearchBookResponseDto convertSearchBookResponse(SearchBookRequestDto requestDto) {
         return SearchBookResponseDto.builder()
                 .items(this.documents.stream().map(documents -> documents.convertBookDto()).collect(Collectors.toList()))
-                .page(this.meta.pageableCount)
-                .size(this.meta.pageableCount)
+                .totalPage(PagingUtils.calculatorTotalPageCount(this.meta.totalCount, requestDto.getSize()))
                 .totalCount(this.meta.totalCount)
+                .page(requestDto.getPage())
+                .size(requestDto.getSize())
+                .count(documents.size())
                 .build();
     }
 }
