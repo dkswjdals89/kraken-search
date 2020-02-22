@@ -20,8 +20,8 @@ public class SearchHistory extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(targetEntity = Account.class, fetch = FetchType.LAZY)
-    @JoinColumn()
+    @OneToOne(targetEntity = Account.class, fetch = FetchType.LAZY)
+    @JoinColumn
     private Account account;
 
     @Enumerated(EnumType.STRING)

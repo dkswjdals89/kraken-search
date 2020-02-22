@@ -1,12 +1,12 @@
 package com.dkswjdals89.krakensearch.service.search;
 
+import com.dkswjdals89.krakensearch.SearchHistoryType;
 import com.dkswjdals89.krakensearch.constant.OpenApiType;
+import com.dkswjdals89.krakensearch.constant.SearchType;
 import com.dkswjdals89.krakensearch.service.openApi.SearchOpenApiService;
 import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
 import com.dkswjdals89.krakensearch.dto.search.SearchBookResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -24,6 +24,7 @@ public class SearchService {
      * @param requestDto - 요청 데이터
      * @return SearchBookResponseDto
      */
+    @SearchHistoryType(SearchType.BOOK)
     public SearchBookResponseDto searchBook(SearchBookRequestDto requestDto) {
         try {
             return openApiServiceMap.get(OpenApiType.KAKAO)

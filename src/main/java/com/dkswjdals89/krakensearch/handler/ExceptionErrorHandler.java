@@ -20,38 +20,6 @@ import java.util.List;
 @ControllerAdvice
 public class ExceptionErrorHandler {
     /**
-     * Field Error 항목을 단일 메시지로 반환
-     * @param fieldErrors   필드 오류 리스트
-     * @return 단일 오류 메시지
-     */
-    public static String makeFieldErrorsMessage(List<FieldError> fieldErrors) {
-        StringBuilder sb = new StringBuilder();
-
-        fieldErrors.stream().forEach(fieldError -> {
-            if (sb.length() != 0)
-            {
-                sb.append(", ");
-            }
-
-            String message = fieldError.getDefaultMessage();
-
-            if (message.contains("java.util.Date"))
-            {
-                message = "Check Date Format";
-            }
-            else if (message.contains("NumberFormatException"))
-            {
-                message = "Number Only";
-            }
-
-            sb.append(fieldError.getField());
-            sb.append("(").append(message).append(")");
-        });
-
-        return sb.toString();
-    }
-
-    /**
      * Validate Error Handle
      * @param e BindException
      * @return 기본 에러 메시지 객체 반환
@@ -91,5 +59,37 @@ public class ExceptionErrorHandler {
     @ResponseBody
     public Object exceptionHandler(Exception e) {
         return null;
+    }
+
+    /**
+     * Field Error 항목을 단일 메시지로 반환
+     * @param fieldErrors   필드 오류 리스트
+     * @return 단일 오류 메시지
+     */
+    public static String makeFieldErrorsMessage(List<FieldError> fieldErrors) {
+        StringBuilder sb = new StringBuilder();
+
+        fieldErrors.stream().forEach(fieldError -> {
+            if (sb.length() != 0)
+            {
+                sb.append(", ");
+            }
+
+            String message = fieldError.getDefaultMessage();
+
+            if (message.contains("java.util.Date"))
+            {
+                message = "Check Date Format";
+            }
+            else if (message.contains("NumberFormatException"))
+            {
+                message = "Number Only";
+            }
+
+            sb.append(fieldError.getField());
+            sb.append("(").append(message).append(")");
+        });
+
+        return sb.toString();
     }
 }

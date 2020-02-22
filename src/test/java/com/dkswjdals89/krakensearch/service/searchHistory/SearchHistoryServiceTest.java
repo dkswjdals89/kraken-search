@@ -5,7 +5,7 @@ import com.dkswjdals89.krakensearch.domain.account.Account;
 import com.dkswjdals89.krakensearch.domain.searchHistory.SearchHistory;
 import com.dkswjdals89.krakensearch.domain.searchHistory.SearchHistoryRepository;
 import com.dkswjdals89.krakensearch.dto.searchHistory.CreateSearchHistoryRequestDto;
-import com.dkswjdals89.krakensearch.service.search.SearchHistoryService;
+import com.dkswjdals89.krakensearch.service.history.SearchHistoryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;

@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 public class CreateSearchHistoryRequestDto {
-    private Account account;
     private String keyword;
     private SearchType searchType;
 }

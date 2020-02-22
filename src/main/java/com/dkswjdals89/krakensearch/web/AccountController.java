@@ -20,8 +20,8 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping("/signup")
-    public AccountDetailDto signup(@RequestBody @Valid AccountSignUpRequestDto requestDto) {
-        return accountService.signup(requestDto);
+    public void signup(@RequestBody @Valid AccountSignUpRequestDto requestDto) {
+        accountService.signup(requestDto);
     }
 
     @PostMapping("/signin")
