@@ -1,12 +1,12 @@
 package com.dkswjdals89.krakensearch.service.openApi.impl;
 
-import com.dkswjdals89.krakensearch.config.openApi.NaverOpenApiConfig;
+import com.dkswjdals89.krakensearch.config.properties.openApi.NaverOpenApiConfig;
 import com.dkswjdals89.krakensearch.constant.NaverSearchApiPath;
 import com.dkswjdals89.krakensearch.constant.OpenApiType;
 import com.dkswjdals89.krakensearch.service.openApi.SearchOpenApiService;
-import com.dkswjdals89.krakensearch.web.dto.NaverSearchBookResponseDto;
-import com.dkswjdals89.krakensearch.web.dto.search.SearchBookRequestDto;
-import com.dkswjdals89.krakensearch.web.dto.search.SearchBookResponseDto;
+import com.dkswjdals89.krakensearch.dto.NaverSearchBookResponseDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchBookResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;

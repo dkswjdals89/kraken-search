@@ -1,8 +1,8 @@
-package com.dkswjdals89.krakensearch.web.dto;
+package com.dkswjdals89.krakensearch.dto;
 
-import com.dkswjdals89.krakensearch.component.PagingUtils;
-import com.dkswjdals89.krakensearch.web.dto.search.SearchBookRequestDto;
-import com.dkswjdals89.krakensearch.web.dto.search.SearchBookResponseDto;
+import com.dkswjdals89.krakensearch.utils.PagingUtils;
+import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchBookResponseDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -70,6 +71,7 @@ public class SearchHistoryRepositoryTest {
     }
 
     @Test
+    @DisplayName("최근 검색 히스토리 조회 테스트")
     public void findRecentlyHistory() {
         List<String> searchKeywords = new ArrayList<>(Arrays.asList("봄", "봄비", "토비", "어린왕자"));
         SearchType searchType = SearchType.BOOK;
@@ -90,5 +92,11 @@ public class SearchHistoryRepositoryTest {
             SearchHistory beforeCreated = createdStack.pop();
             assertThat(history.getId()).isEqualTo(beforeCreated.getId());
         });
+    }
+
+    @Test
+    @DisplayName("인기 탑10 데이터 조회 테스트")
+    public void getSearchKeywordTop10() {
+
     }
 }

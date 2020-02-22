@@ -1,7 +1,8 @@
 package com.dkswjdals89.krakensearch.service.openApi;
 
 import com.dkswjdals89.krakensearch.service.openApi.impl.NaverSearchOpenApiService;
-import com.dkswjdals89.krakensearch.web.dto.search.SearchBookRequestDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchBookResponseDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class NaverSearchOpenApiServiceTest {
                 .build();
 
         // Then
-        naverOpenApiService.searchBook(requestDto);
+        SearchBookResponseDto temp = naverOpenApiService.searchBook(requestDto);
+        System.out.println("TEST");
     }
 }

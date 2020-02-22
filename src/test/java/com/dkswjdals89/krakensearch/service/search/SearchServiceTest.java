@@ -2,12 +2,10 @@ package com.dkswjdals89.krakensearch.service.search;
 
 import com.dkswjdals89.krakensearch.service.openApi.impl.KakaoSearchOpenApiService;
 import com.dkswjdals89.krakensearch.service.openApi.impl.NaverSearchOpenApiService;
-import com.dkswjdals89.krakensearch.web.dto.search.SearchBookRequestDto;
-import com.dkswjdals89.krakensearch.web.dto.search.SearchBookResponseDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchBookResponseDto;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;

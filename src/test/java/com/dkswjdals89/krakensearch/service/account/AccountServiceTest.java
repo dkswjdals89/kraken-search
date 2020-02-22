@@ -2,14 +2,14 @@ package com.dkswjdals89.krakensearch.service.account;
 
 import com.dkswjdals89.krakensearch.domain.account.Account;
 import com.dkswjdals89.krakensearch.domain.account.AccountRepository;
-import com.dkswjdals89.krakensearch.web.dto.account.AccountCreateRequestDto;
+import com.dkswjdals89.krakensearch.dto.account.AccountCreateRequestDto;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.MockBeans;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -32,6 +32,7 @@ public class AccountServiceTest {
     PasswordEncoder passwordEncoder;
 
     @Test
+    @DisplayName("생성 요청에 따라 DB 생성 여부 테스트")
     public void joinAccountSuccessTest() throws Exception {
         // Given
         String userId = "dkswjdals89";
@@ -62,6 +63,7 @@ public class AccountServiceTest {
     }
 
     @Test
+    @DisplayName("사용자 ID 중복 체크 테스트")
     public void joinAccountUserIdDuplicateCheckTest() throws Exception {
         // Given
         String userId = "dkswjdals89";
@@ -88,6 +90,7 @@ public class AccountServiceTest {
     }
 
     @Test
+    @DisplayName("이미 동일한 계정 아이디가 존재하는 경우 예외 발생 테스트")
     public void existUserIdThrowExceptionTest() {
         String userId = "dkswjdals89";
         String password = "dkswjdals89!@";
@@ -109,6 +112,7 @@ public class AccountServiceTest {
     }
 
     @Test
+    @DisplayName("계정 비밀번호 암호화 테스트")
     public void passwordEncoderTest() throws Exception {
         String userId = "dkswjdals89";
         String password = "dkswjdals89!@";

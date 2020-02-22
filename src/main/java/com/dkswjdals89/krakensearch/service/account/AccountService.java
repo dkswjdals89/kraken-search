@@ -1,11 +1,11 @@
 package com.dkswjdals89.krakensearch.service.account;
 
-import com.dkswjdals89.krakensearch.ServiceException;
-import com.dkswjdals89.krakensearch.constant.ServiceError;
+import com.dkswjdals89.krakensearch.exception.ServiceException;
+import com.dkswjdals89.krakensearch.exception.ServiceError;
 import com.dkswjdals89.krakensearch.domain.account.Account;
 import com.dkswjdals89.krakensearch.domain.account.AccountRepository;
-import com.dkswjdals89.krakensearch.web.dto.account.AccountCreateRequestDto;
-import com.dkswjdals89.krakensearch.web.dto.account.AccountDetailDto;
+import com.dkswjdals89.krakensearch.dto.account.AccountCreateRequestDto;
+import com.dkswjdals89.krakensearch.dto.account.AccountDetailDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

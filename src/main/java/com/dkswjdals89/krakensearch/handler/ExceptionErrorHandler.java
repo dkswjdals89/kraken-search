@@ -1,8 +1,8 @@
 package com.dkswjdals89.krakensearch.handler;
 
-import com.dkswjdals89.krakensearch.ServiceException;
-import com.dkswjdals89.krakensearch.constant.ServiceError;
-import com.dkswjdals89.krakensearch.web.dto.ErrorResponseDto;
+import com.dkswjdals89.krakensearch.exception.ServiceException;
+import com.dkswjdals89.krakensearch.exception.ServiceError;
+import com.dkswjdals89.krakensearch.dto.ErrorResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @ControllerAdvice
@@ -74,6 +76,14 @@ public class ExceptionErrorHandler {
     public ResponseEntity<ErrorResponseDto> serviceExceptionHandler(ServiceException e) {
         final ErrorResponseDto response = new ErrorResponseDto(e.getServiceError(), e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.valueOf(e.getServiceError().getStatusCode()));
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    @ResponseBody
+    public ResponseEntity<ErrorResponseDto> handle(Exception e, HttpServletRequest request)
+    {
+        final ErrorResponseDto response = new ErrorResponseDto(ServiceError.REQUEST_VALIDATE_ERROR, e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.valueOf(HttpStatus.BAD_REQUEST.value()));
     }
 
     @ExceptionHandler(Exception.class)

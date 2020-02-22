@@ -1,7 +1,7 @@
 package com.dkswjdals89.krakensearch.service.openApi;
 
-import com.dkswjdals89.krakensearch.web.dto.search.SearchBookRequestDto;
-import com.dkswjdals89.krakensearch.web.dto.search.SearchBookResponseDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchBookResponseDto;
 
 /**
  * Search Open API Interface

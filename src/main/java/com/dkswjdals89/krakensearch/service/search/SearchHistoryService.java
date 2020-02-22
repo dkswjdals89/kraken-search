@@ -1,10 +1,10 @@
-package com.dkswjdals89.krakensearch.service.searchHistory;
+package com.dkswjdals89.krakensearch.service.search;
 
 import com.dkswjdals89.krakensearch.domain.account.Account;
 import com.dkswjdals89.krakensearch.domain.searchHistory.SearchHistory;
 import com.dkswjdals89.krakensearch.domain.searchHistory.SearchHistoryRepository;
-import com.dkswjdals89.krakensearch.web.dto.searchHistory.CreateSearchHistoryRequestDto;
-import com.dkswjdals89.krakensearch.web.dto.searchHistory.SearchHistoryDetailDto;
+import com.dkswjdals89.krakensearch.dto.searchHistory.CreateSearchHistoryRequestDto;
+import com.dkswjdals89.krakensearch.dto.searchHistory.SearchHistoryDetailDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

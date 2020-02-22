@@ -1,17 +1,14 @@
-package com.dkswjdals89.krakensearch.web.dto.searchHistory;
+package com.dkswjdals89.krakensearch.dto.searchHistory;
 
 import com.dkswjdals89.krakensearch.constant.SearchType;
 import com.dkswjdals89.krakensearch.domain.account.Account;
 import com.dkswjdals89.krakensearch.domain.searchHistory.SearchHistory;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
 public class SearchHistoryDetailDto {
     private Long id;
 

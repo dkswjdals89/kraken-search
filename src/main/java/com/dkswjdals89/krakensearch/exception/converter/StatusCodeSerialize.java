@@ -1,6 +1,6 @@
-package com.dkswjdals89.krakensearch.config.jackson;
+package com.dkswjdals89.krakensearch.exception.converter;
 
-import com.dkswjdals89.krakensearch.constant.ServiceError;
+import com.dkswjdals89.krakensearch.exception.ServiceError;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;

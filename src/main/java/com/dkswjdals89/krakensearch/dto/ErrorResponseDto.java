@@ -1,8 +1,8 @@
-package com.dkswjdals89.krakensearch.web.dto;
+package com.dkswjdals89.krakensearch.dto;
 
-import com.dkswjdals89.krakensearch.config.jackson.StatusCodeSerialize;
-import com.dkswjdals89.krakensearch.constant.ServiceError;
+import com.dkswjdals89.krakensearch.exception.ServiceError;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.dkswjdals89.krakensearch.exception.converter.StatusCodeSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

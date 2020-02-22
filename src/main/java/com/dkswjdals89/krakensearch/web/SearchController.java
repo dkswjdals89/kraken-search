@@ -1,8 +1,8 @@
 package com.dkswjdals89.krakensearch.web;
 
 import com.dkswjdals89.krakensearch.service.search.SearchService;
-import com.dkswjdals89.krakensearch.web.dto.search.SearchBookRequestDto;
-import com.dkswjdals89.krakensearch.web.dto.search.SearchBookResponseDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchBookResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import javax.validation.Valid;
  * Open API 기반 검색 API
  */
 @RequiredArgsConstructor
-@RequestMapping("/search")
+@RequestMapping("/v1/search")
 @RestController
 public class SearchController {
     private final SearchService searchService;

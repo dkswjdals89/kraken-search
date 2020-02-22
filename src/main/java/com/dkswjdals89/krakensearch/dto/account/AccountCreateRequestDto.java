@@ -1,12 +1,14 @@
-package com.dkswjdals89.krakensearch.web.dto.account;
+package com.dkswjdals89.krakensearch.dto.account;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class AccountCreateRequestDto {
     @NotEmpty(message = "Required data")
     @Size(min = 3, max = 20, message = "UserId Length must be in range({min} ~ {max})")
@@ -15,10 +17,4 @@ public class AccountCreateRequestDto {
     @NotEmpty(message = "Required data")
     @Size(min = 6, max = 20, message = "Password Length must be in range({min} ~ {max})")
     private String password;
-
-    @Builder
-    public AccountCreateRequestDto(String userId, String password) {
-        this.userId = userId;
-        this.password = password;
-    }
 }

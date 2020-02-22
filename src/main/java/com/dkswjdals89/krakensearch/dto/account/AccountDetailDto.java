@@ -1,11 +1,14 @@
-package com.dkswjdals89.krakensearch.web.dto.account;
+package com.dkswjdals89.krakensearch.dto.account;
 
 import com.dkswjdals89.krakensearch.domain.account.Account;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class AccountDetailDto {
     private long id;
     private String userId;

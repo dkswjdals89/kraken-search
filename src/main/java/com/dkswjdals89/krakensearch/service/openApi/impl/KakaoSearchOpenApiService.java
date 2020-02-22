@@ -1,11 +1,11 @@
 package com.dkswjdals89.krakensearch.service.openApi.impl;
 
-import com.dkswjdals89.krakensearch.config.openApi.KakaoOpenApiConfig;
+import com.dkswjdals89.krakensearch.config.properties.openApi.KakaoOpenApiConfig;
 import com.dkswjdals89.krakensearch.constant.OpenApiType;
 import com.dkswjdals89.krakensearch.service.openApi.SearchOpenApiService;
-import com.dkswjdals89.krakensearch.web.dto.KakaoSearchBookResponseDto;
-import com.dkswjdals89.krakensearch.web.dto.search.SearchBookRequestDto;
-import com.dkswjdals89.krakensearch.web.dto.search.SearchBookResponseDto;
+import com.dkswjdals89.krakensearch.dto.KakaoSearchBookResponseDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchBookResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;

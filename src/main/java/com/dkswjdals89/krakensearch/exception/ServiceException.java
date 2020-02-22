@@ -1,6 +1,5 @@
-package com.dkswjdals89.krakensearch;
+package com.dkswjdals89.krakensearch.exception;
 
-import com.dkswjdals89.krakensearch.constant.ServiceError;
 import lombok.Getter;
 
 @Getter
