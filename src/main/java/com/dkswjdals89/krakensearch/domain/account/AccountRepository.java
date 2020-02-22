@@ -2,6 +2,8 @@ package com.dkswjdals89.krakensearch.domain.account;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface AccountRepository extends JpaRepository<Account, Long>  {
-    Account findOneByUserId(String userId);
+    Optional<Account> findOneByUserId(String userId);
 }

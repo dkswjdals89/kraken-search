@@ -51,10 +51,10 @@ public class AccountRepositoryTest {
                 .build());
 
         // When
-        Account findAccount = accountRepository.findOneByUserId(userId);
+        Optional<Account> findAccount = accountRepository.findOneByUserId(userId);
 
         // Then
-        assertThat(findAccount).isNotNull();
-        assertThat(findAccount.getUserId()).isEqualTo(userId);
+        assertThat(findAccount.isPresent()).isFalse();
+        assertThat(findAccount.get().getUserId()).isEqualTo(userId);
     }
 }

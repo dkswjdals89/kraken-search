@@ -1,6 +1,7 @@
 package com.dkswjdals89.krakensearch.dto.account;
 
 import com.dkswjdals89.krakensearch.domain.account.Account;
+import com.dkswjdals89.krakensearch.domain.account.AccountRole;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ public class AccountDetailDto {
     private String firstName;
     private String lastName;
     private String email;
+    private AccountRole role;
     private Boolean activated;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
@@ -28,5 +30,6 @@ public class AccountDetailDto {
         this.createdDate = account.getCreatedDate();
         this.modifiedDate = account.getModifiedDate();
         this.activated = account.getActivated();
+        this.role = account.getRole();
     }
 }

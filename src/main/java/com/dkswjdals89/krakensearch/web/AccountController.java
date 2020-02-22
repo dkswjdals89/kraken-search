@@ -1,7 +1,9 @@
 package com.dkswjdals89.krakensearch.web;
 
+import com.dkswjdals89.krakensearch.dto.account.AccountSigninRequestDto;
+import com.dkswjdals89.krakensearch.dto.account.AccountSigninResponseDto;
 import com.dkswjdals89.krakensearch.service.account.AccountService;
-import com.dkswjdals89.krakensearch.dto.account.AccountCreateRequestDto;
+import com.dkswjdals89.krakensearch.dto.account.AccountSignUpRequestDto;
 import com.dkswjdals89.krakensearch.dto.account.AccountDetailDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +19,13 @@ import javax.validation.Valid;
 public class AccountController {
     private final AccountService accountService;
 
-    @PostMapping("/create")
-    public AccountDetailDto createAccount(@RequestBody @Valid AccountCreateRequestDto requestDto) throws Exception {
-        return accountService.joinAccount(requestDto);
+    @PostMapping("/signup")
+    public AccountDetailDto signup(@RequestBody @Valid AccountSignUpRequestDto requestDto) {
+        return accountService.signup(requestDto);
+    }
+
+    @PostMapping("/signin")
+    public AccountSigninResponseDto signin(@RequestBody @Valid AccountSigninRequestDto requestDto) {
+        return accountService.signin(requestDto);
     }
 }

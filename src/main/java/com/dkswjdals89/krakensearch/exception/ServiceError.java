@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum ServiceError {
     REQUEST_VALIDATE_ERROR(HttpStatus.BAD_REQUEST.value(), "Request Data Validate Fail"),
-    DUPLICATED_ERROR(HttpStatus.BAD_REQUEST.value(), "Duplicated Error");
+    DUPLICATED_ERROR(HttpStatus.BAD_REQUEST.value(), "Duplicated Error"),
+    NOT_FOUND_ACCOUNT(HttpStatus.NOT_FOUND.value(), "Not Found Account Info"),
+    PASSWORD_ERROR(HttpStatus.NOT_EXTENDED.value(), "Password Does Not Match");
 
     private final Integer statusCode;
     private final String message;
