@@ -1,6 +1,6 @@
 package com.dkswjdals89.krakensearch.service.search;
 
-import com.dkswjdals89.krakensearch.SearchHistoryType;
+import com.dkswjdals89.krakensearch.component.SearchHistoryType;
 import com.dkswjdals89.krakensearch.constant.OpenApiType;
 import com.dkswjdals89.krakensearch.constant.SearchType;
 import com.dkswjdals89.krakensearch.dto.BasePagingListResponseDto;
@@ -8,10 +8,12 @@ import com.dkswjdals89.krakensearch.dto.BookDto;
 import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 import com.dkswjdals89.krakensearch.service.openApi.SearchOpenApiService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class SearchService {

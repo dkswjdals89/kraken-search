@@ -1,16 +1,14 @@
 package com.dkswjdals89.krakensearch.domain.account;
 
 import com.dkswjdals89.krakensearch.domain.BaseTimeEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Getter
 @Entity(name = "tlb_account")
 public class Account extends BaseTimeEntity {

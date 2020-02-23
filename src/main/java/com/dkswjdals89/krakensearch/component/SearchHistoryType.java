@@ -1,4 +1,4 @@
-package com.dkswjdals89.krakensearch;
+package com.dkswjdals89.krakensearch.component;
 
 import com.dkswjdals89.krakensearch.constant.SearchType;
 

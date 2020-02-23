@@ -3,6 +3,7 @@ package com.dkswjdals89.krakensearch.handler;
 import com.dkswjdals89.krakensearch.dto.ErrorResponseDto;
 import com.dkswjdals89.krakensearch.exception.ServiceError;
 import com.dkswjdals89.krakensearch.exception.ServiceException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@Slf4j
 @ControllerAdvice
 public class ExceptionErrorHandler {
     /**
@@ -35,13 +37,14 @@ public class ExceptionErrorHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public ErrorResponseDto bindExceptionHandle(MethodArgumentNotValidException e) {
+    public ErrorResponseDto methodArgumentNotValidExceptionHandle(MethodArgumentNotValidException e) {
         String errorMsg = makeFieldErrorsMessage(e.getBindingResult().getFieldErrors());
         return new ErrorResponseDto(ServiceError.REQUEST_VALIDATE_ERROR, errorMsg);
     }
 
     @ExceptionHandler(ServiceException.class)
     public ResponseEntity<ErrorResponseDto> serviceExceptionHandler(ServiceException e) {
+        log.error("Service Error - " + e);
         final ErrorResponseDto response = new ErrorResponseDto(e.getServiceError(), e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.valueOf(e.getServiceError().getStatusCode()));
     }
@@ -57,6 +60,7 @@ public class ExceptionErrorHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public Object exceptionHandler(Exception e) {
+        log.error("Service Error - " + e);
         final ErrorResponseDto response = new ErrorResponseDto(ServiceError.INTERNAL_ERROR, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
     }

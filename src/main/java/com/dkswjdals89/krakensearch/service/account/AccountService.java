@@ -11,18 +11,17 @@ import com.dkswjdals89.krakensearch.dto.account.AccountSigninResponseDto;
 import com.dkswjdals89.krakensearch.exception.ServiceError;
 import com.dkswjdals89.krakensearch.exception.ServiceException;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class AccountService {
-    private final Logger logger = LoggerFactory.getLogger(Account.class);
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
@@ -36,7 +35,8 @@ public class AccountService {
      */
     @Transactional
     public AccountDetailDto signup(AccountSignUpRequestDto requestDto) {
-        logger.debug("Request sing up - " + requestDto.toString());
+        log.debug("Request sing up - " + requestDto.toString());
+
         Optional<Account> beforeAccount = accountRepository.findOneByUserId(requestDto.getUserId());
 
         beforeAccount.ifPresent((value) -> {
@@ -48,6 +48,8 @@ public class AccountService {
                 .password(passwordEncoder.encode(requestDto.getPassword()))
                 .role(AccountRole.USER) //  회원 가입시 기본으로 유저 권한을 부여한다.
                 .build());
+
+        log.debug("Create Account Result - " + createdAccount);
         return new AccountDetailDto(createdAccount);
     }
 
@@ -58,14 +60,19 @@ public class AccountService {
      */
     @Transactional
     public AccountSigninResponseDto signin(AccountSigninRequestDto requestDto) {
+        log.debug("Request sign in" + requestDto.getUserId());
+
         Optional<Account> account = accountRepository.findOneByUserId(requestDto.getUserId());
         account.orElseThrow(() -> new ServiceException(ServiceError.NOT_FOUND_ACCOUNT, "해당 계정이 존재하지 않습니다."));
 
         Account accountVal = account.get();
         if (!passwordEncoder.matches(requestDto.getPassword(), accountVal.getPassword())) {
+            log.warn("Password Not Match! - userId:" + requestDto.getUserId());
             throw new ServiceException(ServiceError.PASSWORD_ERROR, "비밀번호가 올바르지 않습니다.");
         }
         String jwtToken = jwtTokenProvider.createToken(accountVal);
+
+        log.debug("Created JWT Token" + jwtToken);
         return AccountSigninResponseDto.builder()
                 .token(jwtToken)
                 .build();
