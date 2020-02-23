@@ -8,8 +8,8 @@ spring.jpa.properties.hibernate.dialect.storage_engine=innodb
 spring.datasource.hikari.jdbc-url=jdbc:h2:mem://localhost/~/testdb;MODE=MYSQL
 spring.h2.console.enabled=true
 kakao-open-api.url=https://dapi.kakao.com
-kakao-open-api.key=dabd22cec103435a48fdd14b079d09af
-naver-open-api.client-id=yqs88J6AYOXWkAXurifw
-naver-open-api.client-secret=J_naklT6yV
+kakao-open-api.key={kakao-api-key}
+naver-open-api.client-id={naver-client-id}
+naver-open-api.client-secret={naver-client-secret}
 naver-open-api.url=https://openapi.naver.com
 jwt.secret=kraken-search-secret
