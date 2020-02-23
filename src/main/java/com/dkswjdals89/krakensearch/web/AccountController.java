@@ -1,15 +1,12 @@
 package com.dkswjdals89.krakensearch.web;
 
+import com.dkswjdals89.krakensearch.dto.account.AccountSignUpRequestDto;
 import com.dkswjdals89.krakensearch.dto.account.AccountSigninRequestDto;
 import com.dkswjdals89.krakensearch.dto.account.AccountSigninResponseDto;
 import com.dkswjdals89.krakensearch.service.account.AccountService;
-import com.dkswjdals89.krakensearch.dto.account.AccountSignUpRequestDto;
-import com.dkswjdals89.krakensearch.dto.account.AccountDetailDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -20,6 +17,7 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping("/signup")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void signup(@RequestBody @Valid AccountSignUpRequestDto requestDto) {
         accountService.signup(requestDto);
     }

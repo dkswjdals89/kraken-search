@@ -4,22 +4,20 @@ import com.dkswjdals89.krakensearch.config.security.jwt.JwtTokenProvider;
 import com.dkswjdals89.krakensearch.domain.account.Account;
 import com.dkswjdals89.krakensearch.domain.account.AccountRepository;
 import com.dkswjdals89.krakensearch.domain.account.AccountRole;
-import com.dkswjdals89.krakensearch.dto.account.AccountDetailDto;
 import com.dkswjdals89.krakensearch.dto.account.AccountSignUpRequestDto;
 import com.dkswjdals89.krakensearch.dto.account.AccountSigninRequestDto;
 import com.dkswjdals89.krakensearch.dto.account.AccountSigninResponseDto;
 import com.dkswjdals89.krakensearch.exception.ServiceError;
 import com.dkswjdals89.krakensearch.exception.ServiceException;
-import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
@@ -28,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class AccountServiceTest {
     @Autowired
@@ -45,7 +43,7 @@ public class AccountServiceTest {
 
     @Test
     @DisplayName("가입시 요청 데이터가 DB에 데이터가 생성되어야 한다.")
-    public void signup_AccountSuccessTest() throws Exception {
+    public void signup_AccountSuccessTest() {
         // Given
         String userId = "dkswjdals89";
         String password = "dkswjdals89!@";
@@ -60,7 +58,7 @@ public class AccountServiceTest {
                 .thenReturn(expectedEncPawword);
         when(accountRepository.save(any()))
                 .thenReturn(Account.builder()
-                        .id(Long.valueOf(1))
+                        .id(1L)
                         .userId(userId)
                         .password(password)
                         .build());
@@ -77,7 +75,7 @@ public class AccountServiceTest {
 
     @Test
     @DisplayName("가입시 사용자 ID 중복 체크가 되어야 한다.")
-    public void signup_AccountUserIdDuplicateCheckTest() throws Exception {
+    public void signup_AccountUserIdDuplicateCheckTest() {
         // Given
         String userId = "dkswjdals89";
         String password = "dkswjdals89!@";
@@ -91,7 +89,7 @@ public class AccountServiceTest {
                 .thenReturn(Optional.empty());
         when(accountRepository.save(any()))
                 .thenReturn(Account.builder()
-                        .id(Long.valueOf(1))
+                        .id(1L)
                         .userId(userId)
                         .password(password)
                         .build());
@@ -126,7 +124,7 @@ public class AccountServiceTest {
 
     @Test
     @DisplayName("가입시 비밀번호가 암호화되어야 한다.")
-    public void Signup_AccountPasswordEncoder() throws Exception {
+    public void Signup_AccountPasswordEncoder() {
         String userId = "dkswjdals89";
         String password = "dkswjdals89!@";
 
@@ -137,7 +135,7 @@ public class AccountServiceTest {
 
         when(accountRepository.save(any()))
                 .thenReturn(Account.builder()
-                        .id(Long.valueOf(1))
+                        .id(1L)
                         .userId(userId)
                         .password(password)
                         .build());
@@ -164,6 +162,8 @@ public class AccountServiceTest {
                         .build()));
         when(jwtTokenProvider.createToken(any()))
                 .thenReturn("JWT Token");
+        when(passwordEncoder.matches(any(), any()))
+                .thenReturn(true);
 
         accountService.signin(AccountSigninRequestDto.builder()
                 .userId(userId)
@@ -250,18 +250,15 @@ public class AccountServiceTest {
         String password = "dkswjdals89!@";
         String encodedPassword = "sdfjklsfj12kl321";
 
-        AccountDetailDto accountDetail = AccountDetailDto.builder()
-                .id(1)
+        Optional<Account> account = Optional.of(Account.builder()
+                .id(Long.valueOf("1"))
                 .userId(userId)
-                .build();
+                .password(encodedPassword)
+                .build());
 
         when(accountRepository.findOneByUserId(userId))
-                .thenReturn(Optional.of(Account.builder()
-                        .id(Long.valueOf("1"))
-                        .userId(userId)
-                        .password(encodedPassword)
-                        .build()));
-        when(jwtTokenProvider.createToken(accountDetail))
+                .thenReturn(account);
+        when(jwtTokenProvider.createToken(account.get()))
                 .thenReturn("JWT Token");
         when(passwordEncoder.matches(password, encodedPassword))
                 .thenReturn(true);
@@ -272,7 +269,7 @@ public class AccountServiceTest {
                 .build());
 
         verify(jwtTokenProvider, times(1))
-                .createToken(ArgumentMatchers.refEq(accountDetail));
+                .createToken(ArgumentMatchers.refEq(account.get()));
     }
 
     @Test

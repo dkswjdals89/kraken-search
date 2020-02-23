@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 public enum SearchType {
     BOOK("BOOK");
-    private String name;
+    private final String name;
 }

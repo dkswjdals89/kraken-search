@@ -1,14 +1,14 @@
 package com.dkswjdals89.krakensearch.service.openApi;
 
+import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 import com.dkswjdals89.krakensearch.service.openApi.impl.KakaoSearchOpenApiService;
-import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class KakaoSearchOpenApiServiceTest {
     @Autowired
@@ -16,7 +16,7 @@ public class KakaoSearchOpenApiServiceTest {
 
     @Test
     public void SearchBookTest() {
-        SearchBookRequestDto requestDto = SearchBookRequestDto.builder()
+        SearchRequestDto requestDto = SearchRequestDto.builder()
                 .keyword("어린왕자")
                 .page(1)
                 .size(10)

@@ -4,22 +4,23 @@ import com.dkswjdals89.krakensearch.domain.account.Account;
 import com.dkswjdals89.krakensearch.domain.account.AccountRepository;
 import com.dkswjdals89.krakensearch.exception.ServiceError;
 import com.dkswjdals89.krakensearch.exception.ServiceException;
-import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class AccountDetailServiceTest {
     @Autowired
@@ -56,7 +57,7 @@ public class AccountDetailServiceTest {
 
         ServiceException exception = assertThrows(ServiceException.class, () -> accountDetailService.loadUserByUsername(accountId));
 
-        assertThat(exception.getServiceError()).isEqualTo(ServiceError.NOT_FOUND_ACCOUNT);
-        assertThat(exception.getMessage()).isEqualTo("사용자 계정을 찾을수 없습니다.");
+        assertThat(exception.getServiceError(), equalTo(ServiceError.NOT_FOUND_ACCOUNT));
+        assertThat(exception.getMessage(), equalTo("사용자 계정을 찾을수 없습니다."));
     }
 }

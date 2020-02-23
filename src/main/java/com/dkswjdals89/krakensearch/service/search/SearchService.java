@@ -3,9 +3,10 @@ package com.dkswjdals89.krakensearch.service.search;
 import com.dkswjdals89.krakensearch.SearchHistoryType;
 import com.dkswjdals89.krakensearch.constant.OpenApiType;
 import com.dkswjdals89.krakensearch.constant.SearchType;
+import com.dkswjdals89.krakensearch.dto.BasePagingListResponseDto;
+import com.dkswjdals89.krakensearch.dto.BookDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 import com.dkswjdals89.krakensearch.service.openApi.SearchOpenApiService;
-import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
-import com.dkswjdals89.krakensearch.dto.search.SearchBookResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class SearchService {
      * @return SearchBookResponseDto
      */
     @SearchHistoryType(SearchType.BOOK)
-    public SearchBookResponseDto searchBook(SearchBookRequestDto requestDto) {
+    public BasePagingListResponseDto<BookDto> searchBook(SearchRequestDto requestDto) {
         try {
             return openApiServiceMap.get(OpenApiType.KAKAO)
                     .searchBook(requestDto);

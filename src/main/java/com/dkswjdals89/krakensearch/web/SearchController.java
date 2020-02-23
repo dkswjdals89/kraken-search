@@ -1,8 +1,9 @@
 package com.dkswjdals89.krakensearch.web;
 
+import com.dkswjdals89.krakensearch.dto.BasePagingListResponseDto;
+import com.dkswjdals89.krakensearch.dto.BookDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 import com.dkswjdals89.krakensearch.service.search.SearchService;
-import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
-import com.dkswjdals89.krakensearch.dto.search.SearchBookResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 /**
- * Open API 기반 검색 API
+ * 검색 API
  */
 @RequiredArgsConstructor
 @RequestMapping("/v1/search")
@@ -20,7 +21,7 @@ public class SearchController {
     private final SearchService searchService;
 
     @GetMapping("/book")
-    public SearchBookResponseDto searchBook(@Valid SearchBookRequestDto requestDto) {
+    public BasePagingListResponseDto<BookDto> searchBook(@Valid SearchRequestDto requestDto) {
         return searchService.searchBook(requestDto);
     }
 }

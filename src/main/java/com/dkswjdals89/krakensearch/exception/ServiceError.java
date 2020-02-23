@@ -11,7 +11,8 @@ public enum ServiceError {
     DUPLICATED_ERROR(HttpStatus.BAD_REQUEST.value(), "Duplicated Error"),
     NOT_FOUND_ACCOUNT(HttpStatus.NOT_FOUND.value(), "Not Found Account Info"),
     PASSWORD_ERROR(HttpStatus.NOT_EXTENDED.value(), "Password Does Not Match"),
-    UNAUTHORIZED(HttpStatus.UNAUTHORIZED.value(), "UnAuthorized");
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED.value(), "UnAuthorized"),
+    INTERNAL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal Service Error");
 
     private final Integer statusCode;
     private final String message;

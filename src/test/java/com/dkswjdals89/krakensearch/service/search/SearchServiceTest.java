@@ -1,19 +1,21 @@
 package com.dkswjdals89.krakensearch.service.search;
 
+import com.dkswjdals89.krakensearch.dto.BasePagingListResponseDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
+import com.dkswjdals89.krakensearch.service.history.SearchHistoryService;
 import com.dkswjdals89.krakensearch.service.openApi.impl.KakaoSearchOpenApiService;
 import com.dkswjdals89.krakensearch.service.openApi.impl.NaverSearchOpenApiService;
-import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
-import com.dkswjdals89.krakensearch.dto.search.SearchBookResponseDto;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.mockito.Mockito.*;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class SearchServiceTest {
     @Autowired
@@ -25,10 +27,14 @@ public class SearchServiceTest {
     @MockBean
     NaverSearchOpenApiService naverSearchOpenApiService;
 
+    @MockBean
+    SearchHistoryService searchHistoryService;
+
     @Test
+    @DisplayName("검색 요청 시 카카오 Open API를 사용하여 검색해야 한다.")
     public void searchBookCallKakao() {
         // Given
-        SearchBookRequestDto requestDto = SearchBookRequestDto.builder()
+        SearchRequestDto requestDto = SearchRequestDto.builder()
                 .keyword("토비의 스프링")
                 .page(1)
                 .size(10)
@@ -36,7 +42,7 @@ public class SearchServiceTest {
 
         // When
         when(kakaoSearchOpenApiService.searchBook(requestDto))
-                .thenReturn(new SearchBookResponseDto());
+                .thenReturn(new BasePagingListResponseDto<>());
 
         searchService.searchBook(requestDto);
 
@@ -45,9 +51,10 @@ public class SearchServiceTest {
     }
 
     @Test
+    @DisplayName("검색 요청 시 카카오 Open API에 오류가 발생한 경우, 네이버 Open API로 검색해야 한다.")
     public void callNaverApiOfKakaoApiError() {
         // Given
-        SearchBookRequestDto requestDto = SearchBookRequestDto.builder()
+        SearchRequestDto requestDto = SearchRequestDto.builder()
                 .keyword("스프링 인 액션")
                 .page(1)
                 .size(10)

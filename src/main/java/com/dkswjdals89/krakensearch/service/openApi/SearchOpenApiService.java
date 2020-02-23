@@ -1,7 +1,8 @@
 package com.dkswjdals89.krakensearch.service.openApi;
 
-import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
-import com.dkswjdals89.krakensearch.dto.search.SearchBookResponseDto;
+import com.dkswjdals89.krakensearch.dto.BasePagingListResponseDto;
+import com.dkswjdals89.krakensearch.dto.BookDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 
 /**
  * Search Open API Interface
@@ -12,5 +13,5 @@ public interface SearchOpenApiService {
      * @param requestDto
      * @return
      */
-    SearchBookResponseDto searchBook(SearchBookRequestDto requestDto);
+    BasePagingListResponseDto<BookDto> searchBook(SearchRequestDto requestDto);
 }

@@ -1,8 +1,8 @@
 package com.dkswjdals89.krakensearch.handler;
 
-import com.dkswjdals89.krakensearch.exception.ServiceException;
-import com.dkswjdals89.krakensearch.exception.ServiceError;
 import com.dkswjdals89.krakensearch.dto.ErrorResponseDto;
+import com.dkswjdals89.krakensearch.exception.ServiceError;
+import com.dkswjdals89.krakensearch.exception.ServiceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -55,10 +55,10 @@ public class ExceptionErrorHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public Object exceptionHandler(Exception e) {
-        return null;
+        final ErrorResponseDto response = new ErrorResponseDto(ServiceError.INTERNAL_ERROR, e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
     }
 
     /**
@@ -69,7 +69,7 @@ public class ExceptionErrorHandler {
     public static String makeFieldErrorsMessage(List<FieldError> fieldErrors) {
         StringBuilder sb = new StringBuilder();
 
-        fieldErrors.stream().forEach(fieldError -> {
+        fieldErrors.forEach(fieldError -> {
             if (sb.length() != 0)
             {
                 sb.append(", ");

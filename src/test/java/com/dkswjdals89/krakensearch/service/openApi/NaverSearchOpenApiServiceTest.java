@@ -1,15 +1,14 @@
 package com.dkswjdals89.krakensearch.service.openApi;
 
+import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 import com.dkswjdals89.krakensearch.service.openApi.impl.NaverSearchOpenApiService;
-import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
-import com.dkswjdals89.krakensearch.dto.search.SearchBookResponseDto;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class NaverSearchOpenApiServiceTest {
     @Autowired
@@ -18,14 +17,14 @@ public class NaverSearchOpenApiServiceTest {
     @Test
     public void SearchBookTest() {
         // Given
-        SearchBookRequestDto requestDto = SearchBookRequestDto.builder()
+        SearchRequestDto requestDto = SearchRequestDto.builder()
                 .keyword("어린왕자")
                 .page(1)
                 .size(10)
                 .build();
 
         // Then
-        SearchBookResponseDto temp = naverOpenApiService.searchBook(requestDto);
+        naverOpenApiService.searchBook(requestDto);
         System.out.println("TEST");
     }
 }

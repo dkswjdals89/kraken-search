@@ -1,7 +1,7 @@
 package com.dkswjdals89.krakensearch.aop;
 
 import com.dkswjdals89.krakensearch.SearchHistoryType;
-import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 import com.dkswjdals89.krakensearch.dto.searchHistory.CreateSearchHistoryRequestDto;
 import com.dkswjdals89.krakensearch.service.history.SearchHistoryService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Aspect
@@ -28,16 +27,15 @@ public class SearchHistoryAspect {
      * - 메소드 인자 값 중 SearchRequestDto 가 존재하지 않는다면, 히스토리를 기록하지 않는다.
      * - SearchRequestDto 가 존재하여도, 검색 키워드(keyword) 값이 빈값이라면, 히스토리를 기록하지 않는다.
      * @param joinPoint
-     * @throws Throwable
      */
     @After("@annotation(com.dkswjdals89.krakensearch.SearchHistoryType)")
-    public void saveSearchHistory(JoinPoint joinPoint) throws Throwable {
+    public void saveSearchHistory(JoinPoint joinPoint) {
         SearchHistoryType historyType = ((MethodSignature)joinPoint.getSignature()).getMethod().getAnnotation(SearchHistoryType.class);
 
          Arrays.stream(joinPoint.getArgs())
-                .filter(SearchBookRequestDto.class::isInstance)
+                .filter(SearchRequestDto.class::isInstance)
                 .findFirst()
-                .map(SearchBookRequestDto.class::cast)
+                .map(SearchRequestDto.class::cast)
                  .ifPresent((value) -> {
                     if (!StringUtils.isEmpty(value.getKeyword())) {
                         searchHistoryService.createSearchHistory(CreateSearchHistoryRequestDto.builder()

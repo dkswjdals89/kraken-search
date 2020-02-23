@@ -1,7 +1,6 @@
 package com.dkswjdals89.krakensearch.config.security.jwt;
 
-import com.dkswjdals89.krakensearch.domain.account.AccountRole;
-import com.dkswjdals89.krakensearch.dto.account.AccountDetailDto;
+import com.dkswjdals89.krakensearch.domain.account.Account;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -25,9 +24,10 @@ import java.util.Date;
 public class JwtTokenProvider {
     @Value("jwt.secret")
     private String secretKey;
-    private final String AUTHORIZATION_HEADER = "Authorization";
 
-    private long tokenValidMilisecond = 1000L * 60 * 60; // 1시간만 토큰 유효
+    private final static String AUTHORIZATION_HEADER = "Authorization";
+
+    private final static long TOKEN_VALID_MILISECOND = 1000L * 60 * 60; // 1시간만 토큰 유효
 
     private final UserDetailsService userDetailsService;
 
@@ -37,7 +37,7 @@ public class JwtTokenProvider {
     }
 
     // Jwt 토큰 생성
-    public String createToken(AccountDetailDto account) {
+    public String createToken(Account account) {
         Claims claims = Jwts.claims().setSubject(String.valueOf(account.getId()));
         claims.put("roles", account.getRole().getKey());
         claims.put("userId", account.getUserId());
@@ -45,7 +45,7 @@ public class JwtTokenProvider {
         return Jwts.builder()
                 .setClaims(claims) // 데이터
                 .setIssuedAt(now) // 토큰 발행일자
-                .setExpiration(new Date(now.getTime() + tokenValidMilisecond)) // set Expire Time
+                .setExpiration(new Date(now.getTime() + TOKEN_VALID_MILISECOND)) // set Expire Time
                 .signWith(SignatureAlgorithm.HS256, secretKey) // 암호화 알고리즘, secret값 세팅
                 .compact();
     }
@@ -77,13 +77,9 @@ public class JwtTokenProvider {
 
     // Jwt 토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String jwtToken) {
-        try {
-            Jws<Claims> claims = Jwts.parser()
-                    .setSigningKey(secretKey)
-                    .parseClaimsJws(jwtToken);
-            return !claims.getBody().getExpiration().before(new Date());
-        } catch (Exception e) {
-            return false;
-        }
+        Jws<Claims> claims = Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(jwtToken);
+        return !claims.getBody().getExpiration().before(new Date());
     }
 }

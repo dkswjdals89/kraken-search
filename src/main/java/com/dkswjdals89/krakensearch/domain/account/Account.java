@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -25,9 +24,10 @@ public class Account extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String password;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private AccountRole role;
+    private final AccountRole role = AccountRole.USER;
 
     private String firstName;
 

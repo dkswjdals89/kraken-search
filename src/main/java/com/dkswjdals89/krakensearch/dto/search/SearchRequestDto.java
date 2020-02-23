@@ -1,6 +1,9 @@
 package com.dkswjdals89.krakensearch.dto.search;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -10,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class SearchBookRequestDto {
+public class SearchRequestDto {
     @NotEmpty(message = "keyword is required data field")
     private String keyword;
 
@@ -19,6 +22,6 @@ public class SearchBookRequestDto {
     private Integer page = 1;
 
     @Builder.Default
-    @Max(100)
+    @Max(value = 100, message = "page size max {1}")
     private Integer size = 10;
 }

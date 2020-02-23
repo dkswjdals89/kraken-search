@@ -1,7 +1,9 @@
 package com.dkswjdals89.krakensearch.dto.account;
 
-import com.dkswjdals89.krakensearch.domain.account.AccountRole;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;

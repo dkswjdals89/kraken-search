@@ -2,7 +2,6 @@ package com.dkswjdals89.krakensearch.service.account;
 
 import com.dkswjdals89.krakensearch.domain.account.Account;
 import com.dkswjdals89.krakensearch.domain.account.AccountRepository;
-import com.dkswjdals89.krakensearch.domain.account.AccountRole;
 import com.dkswjdals89.krakensearch.dto.account.AccountDetailDto;
 import com.dkswjdals89.krakensearch.exception.ServiceError;
 import com.dkswjdals89.krakensearch.exception.ServiceException;
@@ -16,10 +15,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * `Spring Security`에서 유저 정보를 조회하기 위한 Service
+ */
 @RequiredArgsConstructor
 @Service
 public class AccountDetailService implements UserDetailsService {
@@ -30,18 +31,5 @@ public class AccountDetailService implements UserDetailsService {
          Optional<Account> account = accountRepository.findById(Long.valueOf(accountId));
          account.orElseThrow(() -> new ServiceException(ServiceError.NOT_FOUND_ACCOUNT, "사용자 계정을 찾을수 없습니다."));
          return new AccountDetailDto(account.get());
-//         return convertAccountToUser(account.get());
-    }
-
-    private User convertAccountToUser(Account account) {
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-
-        if (account.getRole() != null) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(account.getRole().getKey()));
-        }
-
-        return new User(account.getUserId(),
-                account.getPassword(),
-                grantedAuthorities);
     }
 }

@@ -1,8 +1,8 @@
 package com.dkswjdals89.krakensearch.dto;
 
 import com.dkswjdals89.krakensearch.exception.ServiceError;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.dkswjdals89.krakensearch.exception.converter.StatusCodeSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

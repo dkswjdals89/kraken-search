@@ -3,10 +3,7 @@ package com.dkswjdals89.krakensearch.domain.searchHistory;
 import com.dkswjdals89.krakensearch.constant.SearchType;
 import com.dkswjdals89.krakensearch.domain.BaseTimeEntity;
 import com.dkswjdals89.krakensearch.domain.account.Account;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -14,13 +11,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@ToString
 @Entity(name = "tlb_search_history")
 public class SearchHistory extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(targetEntity = Account.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Account.class)
     @JoinColumn
     private Account account;
 

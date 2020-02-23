@@ -1,8 +1,7 @@
 package com.dkswjdals89.krakensearch.dto;
 
+import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 import com.dkswjdals89.krakensearch.utils.PagingUtils;
-import com.dkswjdals89.krakensearch.dto.search.SearchBookRequestDto;
-import com.dkswjdals89.krakensearch.dto.search.SearchBookResponseDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -83,8 +82,8 @@ public class KakaoSearchBookResponseDto {
         private boolean isEnd;
     }
 
-    public SearchBookResponseDto convertSearchBookResponse(SearchBookRequestDto requestDto) {
-        return SearchBookResponseDto.builder()
+    public BasePagingListResponseDto<BookDto> convertSearchBookResponse(SearchRequestDto requestDto) {
+        return BasePagingListResponseDto.<BookDto>builder()
                 .items(this.documents.stream()
                         .map(Documents::convertBookDto)
                         .collect(Collectors.toList()))
