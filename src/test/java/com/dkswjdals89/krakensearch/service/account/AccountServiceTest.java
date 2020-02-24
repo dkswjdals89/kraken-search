@@ -3,7 +3,6 @@ package com.dkswjdals89.krakensearch.service.account;
 import com.dkswjdals89.krakensearch.config.security.jwt.JwtTokenProvider;
 import com.dkswjdals89.krakensearch.domain.account.Account;
 import com.dkswjdals89.krakensearch.domain.account.AccountRepository;
-import com.dkswjdals89.krakensearch.domain.account.AccountRole;
 import com.dkswjdals89.krakensearch.dto.account.AccountSignUpRequestDto;
 import com.dkswjdals89.krakensearch.dto.account.AccountSigninRequestDto;
 import com.dkswjdals89.krakensearch.dto.account.AccountSigninResponseDto;
@@ -12,6 +11,7 @@ import com.dkswjdals89.krakensearch.exception.ServiceException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,7 +21,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -47,7 +48,7 @@ public class AccountServiceTest {
         // Given
         String userId = "dkswjdals89";
         String password = "dkswjdals89!@";
-        String expectedEncPawword = "encodePassword";
+        String expectedEncPassword = "encodePassword";
 
         AccountSignUpRequestDto requestDto = AccountSignUpRequestDto.builder()
                 .userId(userId)
@@ -55,7 +56,7 @@ public class AccountServiceTest {
                 .build();
 
         when(passwordEncoder.encode(password))
-                .thenReturn(expectedEncPawword);
+                .thenReturn(expectedEncPassword);
         when(accountRepository.save(any()))
                 .thenReturn(Account.builder()
                         .id(1L)
@@ -66,11 +67,12 @@ public class AccountServiceTest {
         accountService.signup(requestDto);
 
         // Then
-        verify(accountRepository).save(ArgumentMatchers.refEq(Account.builder()
-                .userId(userId)
-                .password(expectedEncPawword)
-                .role(AccountRole.USER)
-        .build()));
+        ArgumentCaptor<Account> argument = ArgumentCaptor.forClass(Account.class);
+        verify(accountRepository).save(argument.capture());
+
+        Account callArgument = argument.getValue();
+        assertThat(callArgument.getUserId(), equalTo(userId));
+        assertThat(callArgument.getPassword(), equalTo(expectedEncPassword));
     }
 
     @Test
@@ -119,7 +121,7 @@ public class AccountServiceTest {
         Exception exception = assertThrows(Exception.class, ()->
                 accountService.signup(requestDto));
 
-        assertThat(exception.getMessage()).isEqualTo(exceptedErrorMeg);
+        assertThat(exception.getMessage(), equalTo(exceptedErrorMeg));
     }
 
     @Test
@@ -187,8 +189,8 @@ public class AccountServiceTest {
                 .password(password)
                 .build()));
 
-        assertThat(exception.getServiceError()).isEqualTo(ServiceError.NOT_FOUND_ACCOUNT);
-        assertThat(exception.getMessage()).isEqualTo("해당 계정이 존재하지 않습니다.");
+        assertThat(exception.getServiceError(), equalTo(ServiceError.NOT_FOUND_ACCOUNT));
+        assertThat(exception.getMessage(), equalTo("해당 계정이 존재하지 않습니다."));
     }
 
     @Test
@@ -239,8 +241,8 @@ public class AccountServiceTest {
                         .password(password)
                         .build()));
 
-        assertThat(exception.getServiceError()).isEqualTo(ServiceError.PASSWORD_ERROR);
-        assertThat(exception.getMessage()).isEqualTo("비밀번호가 올바르지 않습니다.");
+        assertThat(exception.getServiceError(), equalTo(ServiceError.PASSWORD_ERROR));
+        assertThat(exception.getMessage(), equalTo("비밀번호가 올바르지 않습니다."));
     }
 
     @Test
@@ -297,7 +299,7 @@ public class AccountServiceTest {
                 .password(password)
                 .build());
 
-        assertThat(result).isNotNull();
-        assertThat(result.getToken()).isEqualTo(expectedJwtToken);
+        assertThat(result, notNull());
+        assertThat(result.getToken(), equalTo(expectedJwtToken));
     }
 }

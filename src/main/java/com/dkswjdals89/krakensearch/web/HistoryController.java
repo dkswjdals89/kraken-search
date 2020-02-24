@@ -1,8 +1,8 @@
 package com.dkswjdals89.krakensearch.web;
 
 import com.dkswjdals89.krakensearch.dto.BasePagingListResponseDto;
-import com.dkswjdals89.krakensearch.dto.searchHistory.RecentlySearchHistoryRequestDto;
-import com.dkswjdals89.krakensearch.dto.searchHistory.SearchHistoryDetailDto;
+import com.dkswjdals89.krakensearch.dto.history.RecentlySearchHistoryRequestDto;
+import com.dkswjdals89.krakensearch.dto.history.SearchHistoryDetailDto;
 import com.dkswjdals89.krakensearch.service.history.SearchHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

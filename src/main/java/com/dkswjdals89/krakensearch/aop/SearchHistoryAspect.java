@@ -2,8 +2,9 @@ package com.dkswjdals89.krakensearch.aop;
 
 import com.dkswjdals89.krakensearch.component.SearchHistoryType;
 import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
-import com.dkswjdals89.krakensearch.dto.searchHistory.CreateSearchHistoryRequestDto;
+import com.dkswjdals89.krakensearch.dto.history.CreateSearchHistoryRequestDto;
 import com.dkswjdals89.krakensearch.service.history.SearchHistoryService;
+import com.dkswjdals89.krakensearch.service.statistics.SearchRankingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -21,9 +22,10 @@ import java.util.Arrays;
 @Component
 public class SearchHistoryAspect {
     private final SearchHistoryService searchHistoryService;
+    private final SearchRankingService searchRankingService;
 
     /**
-     * 검색 서비스에 등록된 함수 호출 후, 검색 히스토리 기록
+     * 검색 서비스에 등록된 함수 호출 후, 검색 히스토리 & 검색 랭킹 기록
      *
      * - SearchHistoryType 어노테이션을 사용한 녀석들만 수행한다.
      * - 메소드 인자 값 중 SearchRequestDto 가 존재하지 않는다면, 히스토리를 기록하지 않는다.
@@ -40,8 +42,12 @@ public class SearchHistoryAspect {
                 .map(SearchRequestDto.class::cast)
                  .ifPresent((value) -> {
                     if (!StringUtils.isEmpty(value.getKeyword())) {
+                        String searchKeyword = value.getKeyword();
+                        // 검색 키워드 랭킹 증가
+                        searchRankingService.incrementSearchKeywordCount(searchKeyword);
+                        // 계정별 키워드 히스토리 기록
                         searchHistoryService.createSearchHistory(CreateSearchHistoryRequestDto.builder()
-                                .keyword((value.getKeyword()))
+                                .keyword(searchKeyword)
                                 .searchType(historyType.value())
                                 .build());
                     }

@@ -1,4 +1,4 @@
-package com.dkswjdals89.krakensearch.domain.searchHistory;
+package com.dkswjdals89.krakensearch.domain.history;
 
 import com.dkswjdals89.krakensearch.constant.SearchType;
 import com.dkswjdals89.krakensearch.domain.BaseTimeEntity;

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties("book")
+@ConfigurationProperties("kraken")
 public class KrakenSearchProperties {
 }

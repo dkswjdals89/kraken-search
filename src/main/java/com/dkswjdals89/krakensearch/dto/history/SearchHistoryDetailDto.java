@@ -1,8 +1,8 @@
-package com.dkswjdals89.krakensearch.dto.searchHistory;
+package com.dkswjdals89.krakensearch.dto.history;
 
 import com.dkswjdals89.krakensearch.constant.SearchType;
 import com.dkswjdals89.krakensearch.domain.account.Account;
-import com.dkswjdals89.krakensearch.domain.searchHistory.SearchHistory;
+import com.dkswjdals89.krakensearch.domain.history.SearchHistory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -2,13 +2,13 @@ package com.dkswjdals89.krakensearch.service.history;
 
 import com.dkswjdals89.krakensearch.component.ContextHolderComponent;
 import com.dkswjdals89.krakensearch.domain.account.Account;
-import com.dkswjdals89.krakensearch.domain.searchHistory.SearchHistory;
-import com.dkswjdals89.krakensearch.domain.searchHistory.SearchHistoryRepository;
+import com.dkswjdals89.krakensearch.domain.history.SearchHistory;
+import com.dkswjdals89.krakensearch.domain.history.SearchHistoryRepository;
 import com.dkswjdals89.krakensearch.dto.BasePagingListResponseDto;
 import com.dkswjdals89.krakensearch.dto.account.AccountDetailDto;
-import com.dkswjdals89.krakensearch.dto.searchHistory.CreateSearchHistoryRequestDto;
-import com.dkswjdals89.krakensearch.dto.searchHistory.RecentlySearchHistoryRequestDto;
-import com.dkswjdals89.krakensearch.dto.searchHistory.SearchHistoryDetailDto;
+import com.dkswjdals89.krakensearch.dto.history.CreateSearchHistoryRequestDto;
+import com.dkswjdals89.krakensearch.dto.history.RecentlySearchHistoryRequestDto;
+import com.dkswjdals89.krakensearch.dto.history.SearchHistoryDetailDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

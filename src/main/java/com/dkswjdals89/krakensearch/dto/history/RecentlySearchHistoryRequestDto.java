@@ -1,4 +1,4 @@
-package com.dkswjdals89.krakensearch.dto.searchHistory;
+package com.dkswjdals89.krakensearch.dto.history;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
