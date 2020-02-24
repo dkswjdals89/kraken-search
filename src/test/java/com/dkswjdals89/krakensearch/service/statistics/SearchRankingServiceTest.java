@@ -3,6 +3,7 @@ package com.dkswjdals89.krakensearch.service.statistics;
 import com.dkswjdals89.krakensearch.domain.statistics.SearchRanking;
 import com.dkswjdals89.krakensearch.domain.statistics.SearchRankingRepository;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -22,6 +23,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@DisplayName("검색 랭킹 서비스 테스트")
 public class SearchRankingServiceTest {
     @Autowired
     private SearchRankingService searchRankingService;
@@ -29,19 +31,23 @@ public class SearchRankingServiceTest {
     @MockBean
     private SearchRankingRepository searchRankingRepository;
 
-    @Test
-    @DisplayName("검색 키워드에 대해 카운트 증가 처리가 수행되어야 한다.")
-    public void incrementSearchKeywordUseRepository() {
-        String keyword = "디자인 패턴";
+    @Nested
+    @DisplayName("검색 키워드 카운트 테스트")
+    class IncrementSearchKeywordTest {
+        @Test
+        @DisplayName("검색 키워드에 대해 카운트 증가 처리가 수행되어야 한다.")
+        public void thenIncrementSearchKeywordUseRepository() {
+            String keyword = "디자인 패턴";
 
-        searchRankingService.incrementSearchKeywordCount(keyword);
+            searchRankingService.incrementSearchKeywordCount(keyword);
 
-        verify(searchRankingRepository).incrementSearchKeywordCount(keyword);
+            verify(searchRankingRepository).incrementSearchKeywordCount(keyword);
+        }
     }
 
     @Test
     @DisplayName("인기 키워드에 대해 상위 10개 까지만 조회해야 한다.")
-    public void getSearchKeywordRankMustOnlyTop10() {
+    public void thenGetSearchKeywordRankMustOnlyTop10() {
         List<SearchRanking> rankingList = Arrays.asList(
                 new SearchRanking("스프링", 3D),
                 new SearchRanking("토비", 10D),

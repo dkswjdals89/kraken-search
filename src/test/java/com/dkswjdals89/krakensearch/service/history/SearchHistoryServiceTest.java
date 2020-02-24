@@ -24,6 +24,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@DisplayName("검색 히스토리 서비스 테스트")
 public class SearchHistoryServiceTest {
     @Autowired
     SearchHistoryService searchHistoryService;

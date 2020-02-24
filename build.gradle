@@ -38,7 +38,7 @@ dependencies {
 	compile('it.ozimov:embedded-redis:0.7.2')
 	compileOnly('org.projectlombok:lombok')
 	developmentOnly('org.springframework.boot:spring-boot-devtools')
-	annotationProcessor('org.springframework.boot:spring해-boot-configuration-processor')
+	annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
 	annotationProcessor('org.projectlombok:lombok')
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

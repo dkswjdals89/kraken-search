@@ -22,6 +22,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@DisplayName("Spring Security Account Detail Service 테스트")
 public class AccountDetailServiceTest {
     @Autowired
     AccountDetailService accountDetailService;
