@@ -6,8 +6,9 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties("kakao-open-api")
-public class KakaoOpenApiConfig {
+@ConfigurationProperties("naver-open-api")
+public class NaverOpenApiProperties {
     private String url;
-    private String key;
+    private String clientId;
+    private String clientSecret;
 }

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties("kraken")
-public class KrakenSearchProperties {
+@ConfigurationProperties("kraken.redis")
+public class RedisProperties {
+    private String host;
+    private int port;
 }

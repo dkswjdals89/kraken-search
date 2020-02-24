@@ -1,8 +1,11 @@
 package com.dkswjdals89.krakensearch.config.redis;
 
+import com.dkswjdals89.krakensearch.config.properties.RedisProperties;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.util.StringUtils;
 import redis.embedded.RedisServer;
 
@@ -12,18 +15,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-@Slf4j //lombok
-//@Profile("local") // profile이 local일때만 활성화
+@Slf4j
+@RequiredArgsConstructor
+@Profile("develop") // 개발 환경에서만 사용
 @Configuration
 public class EmbeddedRedisConfig {
-    @Value("${spring.redis.port}")
-    private int redisPort;
+    private final RedisProperties redisProperties;
 
     private RedisServer redisServer;
 
     @PostConstruct
     public void redisServer() throws IOException {
-        int port = isRedisRunning()? findAvailablePort() : redisPort;
+        int port = isRedisRunning()? findAvailablePort() : redisProperties.getPort();
         redisServer = new RedisServer(port);
         redisServer.start();
     }
@@ -39,7 +42,7 @@ public class EmbeddedRedisConfig {
      * Embedded Redis가 현재 실행중인지 확인
      */
     private boolean isRedisRunning() throws IOException {
-        return isRunning(executeGrepProcessCommand(redisPort));
+        return isRunning(executeGrepProcessCommand(redisProperties.getPort()));
     }
 
     /**

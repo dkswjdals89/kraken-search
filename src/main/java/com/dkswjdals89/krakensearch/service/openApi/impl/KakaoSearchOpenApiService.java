@@ -1,6 +1,7 @@
 package com.dkswjdals89.krakensearch.service.openApi.impl;
 
-import com.dkswjdals89.krakensearch.config.properties.openApi.KakaoOpenApiConfig;
+import com.dkswjdals89.krakensearch.config.properties.openApi.KakaoOpenApiProperties;
+import com.dkswjdals89.krakensearch.constant.KakaoSearchApiPath;
 import com.dkswjdals89.krakensearch.constant.OpenApiType;
 import com.dkswjdals89.krakensearch.dto.BasePagingListResponseDto;
 import com.dkswjdals89.krakensearch.dto.BookDto;
@@ -18,14 +19,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Service(OpenApiType.KAKAO)
 public class KakaoSearchOpenApiService implements SearchOpenApiService {
     private final RestTemplate restTemplate;
-    private final KakaoOpenApiConfig kakaoOpenApiConfig;
+    private final KakaoOpenApiProperties kakaoOpenApiProperties;
 
     @Override
     public BasePagingListResponseDto<BookDto> searchBook(SearchRequestDto requestDto) {
-        String uri = kakaoOpenApiConfig.getUrl() + "/v3/search/book";
+        String uri = kakaoOpenApiProperties.getUrl() + KakaoSearchApiPath.BOOK_SEARCH;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("Authorization", "KakaoAK " + kakaoOpenApiConfig.getKey());
+        headers.add("Authorization", "KakaoAK " + kakaoOpenApiProperties.getKey());
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         UriComponents builder = UriComponentsBuilder.fromHttpUrl(uri)

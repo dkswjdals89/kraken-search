@@ -1,6 +1,6 @@
 package com.dkswjdals89.krakensearch.service.openApi.impl;
 
-import com.dkswjdals89.krakensearch.config.properties.openApi.NaverOpenApiConfig;
+import com.dkswjdals89.krakensearch.config.properties.openApi.NaverOpenApiProperties;
 import com.dkswjdals89.krakensearch.constant.NaverSearchApiPath;
 import com.dkswjdals89.krakensearch.constant.OpenApiType;
 import com.dkswjdals89.krakensearch.dto.BasePagingListResponseDto;
@@ -19,15 +19,15 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Service(OpenApiType.NAVER)
 public class NaverSearchOpenApiService implements SearchOpenApiService {
     private final RestTemplate restTemplate;
-    private final NaverOpenApiConfig naverOpenApiConfig;
+    private final NaverOpenApiProperties naverOpenApiProperties;
 
     @Override
     public BasePagingListResponseDto<BookDto> searchBook(SearchRequestDto requestDto) {
-        String uri = naverOpenApiConfig.getUrl() + NaverSearchApiPath.BOOK_SEARCH;
+        String uri = naverOpenApiProperties.getUrl() + NaverSearchApiPath.BOOK_SEARCH;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("X-Naver-Client-Id", naverOpenApiConfig.getClientId());
-        headers.add("X-Naver-Client-Secret", naverOpenApiConfig.getClientSecret());
+        headers.add("X-Naver-Client-Id", naverOpenApiProperties.getClientId());
+        headers.add("X-Naver-Client-Secret", naverOpenApiProperties.getClientSecret());
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         UriComponents builder = UriComponentsBuilder.fromHttpUrl(uri)
