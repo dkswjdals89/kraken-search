@@ -7,6 +7,7 @@ import com.dkswjdals89.krakensearch.exception.ServiceError;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -18,10 +19,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final Environment environment;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Bean
@@ -49,6 +53,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // develop 환경에 대해 h2-console 권한 허용
+        if (Arrays.asList(environment.getActiveProfiles()).contains("develop")){
+            http.authorizeRequests()
+                    .antMatchers("/h2-console/**")
+                    .permitAll();
+        }
         // 기본 인증 및 세션 비활성화
         http
                 .httpBasic().disable()
@@ -58,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable();
         http
                 .authorizeRequests()
-                .antMatchers(new String[]{"/v1/account/signin", "/v1/account/signup", "/h2-console/**"}).permitAll()
+                .antMatchers("/v1/account/signin", "/v1/account/signup").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()

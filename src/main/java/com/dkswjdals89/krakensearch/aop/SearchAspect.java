@@ -20,7 +20,7 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 @Aspect
 @Component
-public class SearchHistoryAspect {
+public class SearchAspect {
     private final SearchHistoryService searchHistoryService;
     private final SearchRankingService searchRankingService;
 
@@ -33,7 +33,7 @@ public class SearchHistoryAspect {
      * @param joinPoint
      */
     @After("@annotation(com.dkswjdals89.krakensearch.component.SearchHistoryType)")
-    public void saveSearchHistory(JoinPoint joinPoint) {
+    public void searchAfterProcessing(JoinPoint joinPoint) {
         SearchHistoryType historyType = ((MethodSignature)joinPoint.getSignature()).getMethod().getAnnotation(SearchHistoryType.class);
 
          Arrays.stream(joinPoint.getArgs())

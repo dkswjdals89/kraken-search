@@ -10,8 +10,9 @@ import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 public interface SearchOpenApiService {
     /**
      * 도서 데이터 검색
-     * @param requestDto
-     * @return
+     *
+     * @param requestDto 요청 Query Data
+     * @return 기본 페이징 리스트 데이터 형식으로 반환
      */
     BasePagingListResponseDto<BookDto> searchBook(SearchRequestDto requestDto);
 }

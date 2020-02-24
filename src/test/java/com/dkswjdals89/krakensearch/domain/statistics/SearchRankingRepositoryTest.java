@@ -49,12 +49,6 @@ public class SearchRankingRepositoryTest {
                     .score(SEARCH_RANK_REDIS_KEY, keyword);
             assertThat(savedScore, equalTo(1D));
         }
-
-        @Test
-        @DisplayName("검색 키워드 증가 시")
-        public void thenUseSearchRankRedisKey() {
-
-        }
     }
 
     @Nested

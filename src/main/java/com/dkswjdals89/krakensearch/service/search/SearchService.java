@@ -9,9 +9,13 @@ import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 import com.dkswjdals89.krakensearch.service.openApi.SearchOpenApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.retry.annotation.Recover;
+import org.springframework.retry.annotation.Retryable;
+import org.springframework.retry.interceptor.RetryInterceptorBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.function.Function;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,13 +32,15 @@ public class SearchService {
      * @return SearchBookResponseDto
      */
     @SearchHistoryType(SearchType.BOOK)
+    @Retryable(maxAttempts = 1)
     public BasePagingListResponseDto<BookDto> searchBook(SearchRequestDto requestDto) {
-        try {
-            return openApiServiceMap.get(OpenApiType.KAKAO)
-                    .searchBook(requestDto);
-        } catch (Exception error) {
-            return openApiServiceMap.get(OpenApiType.NAVER)
-                    .searchBook(requestDto);
-        }
+        return openApiServiceMap.get(OpenApiType.KAKAO)
+                .searchBook(requestDto);
+    }
+
+    @Recover
+    public BasePagingListResponseDto<BookDto> recover(RuntimeException t, SearchRequestDto requestDto) {
+        return openApiServiceMap.get(OpenApiType.NAVER)
+                .searchBook(requestDto);
     }
 }

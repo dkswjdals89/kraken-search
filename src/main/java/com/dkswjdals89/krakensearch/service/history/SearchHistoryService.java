@@ -47,6 +47,13 @@ public class SearchHistoryService {
         return new SearchHistoryDetailDto(createdHistory);
     }
 
+    /**
+     * 사용자 검색 히스토리 리스트 조회
+     * - 최근 검색 데이터 순으로 정렬하여 반환한다.
+     *
+     * @param requestDto 검색 요청 Query
+     * @return 기본 페이징 리스트 데이터 형식으로 반환
+     */
     @Transactional(readOnly = true)
     public BasePagingListResponseDto<SearchHistoryDetailDto> findRecentlyByAccount(RecentlySearchHistoryRequestDto requestDto) {
         AccountDetailDto account = ContextHolderComponent.getCurrentAccountDetail();

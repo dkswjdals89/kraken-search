@@ -30,6 +30,11 @@ public class SearchRankingService {
         }
     }
 
+    /**
+     * 검색 키워드 랭킹 조회
+     * - 상위 10건에 대해서만 조회하여 반환한다.
+     * @return 기본 페이징 리스트 데이터 형식으로 반환
+     */
     public BasePagingListResponseDto<SearchRankingDto> searchKeywordRank() {
         List<SearchRanking> rankList = searchRankingRepository.getTopSearchKeywordWithScore(10);
 
