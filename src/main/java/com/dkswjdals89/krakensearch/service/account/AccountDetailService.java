@@ -7,6 +7,7 @@ import com.dkswjdals89.krakensearch.exception.ServiceError;
 import com.dkswjdals89.krakensearch.exception.ServiceException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,6 +25,7 @@ public class AccountDetailService implements UserDetailsService {
     private final AccountRepository accountRepository;
 
     @Override
+    @Cacheable(value = "accountDetail", key = "#accountId")
     public UserDetails loadUserByUsername(String accountId) throws UsernameNotFoundException {
         log.debug("Request Load User - " + accountId);
          Optional<Account> account = accountRepository.findById(Long.valueOf(accountId));

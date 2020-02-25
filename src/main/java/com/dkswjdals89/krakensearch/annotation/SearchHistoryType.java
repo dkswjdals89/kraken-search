@@ -1,4 +1,4 @@
-package com.dkswjdals89.krakensearch.component;
+package com.dkswjdals89.krakensearch.annotation;
 
 import com.dkswjdals89.krakensearch.constant.SearchType;
 
@@ -10,5 +10,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SearchHistoryType {
-    SearchType value() default SearchType.BOOK;
+    SearchType value();
 }

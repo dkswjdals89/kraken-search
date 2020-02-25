@@ -1,6 +1,6 @@
 package com.dkswjdals89.krakensearch.aop;
 
-import com.dkswjdals89.krakensearch.component.SearchHistoryType;
+import com.dkswjdals89.krakensearch.annotation.SearchHistoryType;
 import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 import com.dkswjdals89.krakensearch.dto.history.CreateSearchHistoryRequestDto;
 import com.dkswjdals89.krakensearch.service.history.SearchHistoryService;
@@ -32,7 +32,7 @@ public class SearchAspect {
      * - SearchRequestDto 가 존재하여도, 검색 키워드(keyword) 값이 빈값이라면, 히스토리를 기록하지 않는다.
      * @param joinPoint
      */
-    @After("@annotation(com.dkswjdals89.krakensearch.component.SearchHistoryType)")
+    @After("@annotation(com.dkswjdals89.krakensearch.annotation.SearchHistoryType)")
     public void searchAfterProcessing(JoinPoint joinPoint) {
         SearchHistoryType historyType = ((MethodSignature)joinPoint.getSignature()).getMethod().getAnnotation(SearchHistoryType.class);
 

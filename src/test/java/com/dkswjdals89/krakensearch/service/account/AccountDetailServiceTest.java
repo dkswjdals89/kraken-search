@@ -2,14 +2,19 @@ package com.dkswjdals89.krakensearch.service.account;
 
 import com.dkswjdals89.krakensearch.domain.account.Account;
 import com.dkswjdals89.krakensearch.domain.account.AccountRepository;
+import com.dkswjdals89.krakensearch.dto.account.AccountDetailDto;
 import com.dkswjdals89.krakensearch.exception.ServiceError;
 import com.dkswjdals89.krakensearch.exception.ServiceException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cache.CacheManager;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
@@ -17,8 +22,7 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -27,8 +31,18 @@ public class AccountDetailServiceTest {
     @Autowired
     AccountDetailService accountDetailService;
 
+    @Autowired
+    CacheManager cacheManager;
+
     @MockBean
     AccountRepository accountRepository;
+
+    @BeforeEach
+    public void cacheCleanUp() {
+        for(String name : cacheManager.getCacheNames()){
+            cacheManager.getCache(name).clear();
+        }
+    }
 
     @Test
     @DisplayName("유저 정보 조회 시 요청 ID에 해당하는 유저 데이터를 조회해야 한다.")
@@ -60,5 +74,38 @@ public class AccountDetailServiceTest {
 
         assertThat(exception.getServiceError(), equalTo(ServiceError.NOT_FOUND_ACCOUNT));
         assertThat(exception.getMessage(), equalTo("사용자 계정을 찾을수 없습니다."));
+    }
+
+    @Nested
+    @DisplayName("Account Detail Caching 테스트")
+    class CachingTest {
+        @Test
+        @DisplayName("요청 ID에 대한 캐싱 데이터가 존재한다면, DB조회를 하지 않아야 한다.")
+        public void existCacheNotCallMethod() {
+            String accountId = "1";
+            cacheManager.getCache("accountDetail")
+                    .put(accountId, AccountDetailDto.builder()
+                            .id(Long.valueOf(accountId))
+                            .build());
+
+            accountDetailService.loadUserByUsername(accountId);
+            verify(accountRepository, times(0))
+                    .findById(Long.valueOf(accountId));
+        }
+
+        @Test
+        @DisplayName("요청 ID에 대한 캐싱 데이터가 존재한다면, 캐싱된 데이터를 반환해야 한다.")
+        public void existCahceReturnCachingData() {
+            String accountId = "1";
+            AccountDetailDto expectedAccountDetail = AccountDetailDto.builder()
+                    .id(Long.valueOf(accountId))
+                    .build();
+
+            cacheManager.getCache("accountDetail")
+                    .put(accountId, expectedAccountDetail);
+
+            UserDetails returnData = accountDetailService.loadUserByUsername(accountId);
+            assertThat(returnData.getUsername(), equalTo(expectedAccountDetail.getUsername()));
+        }
     }
 }
