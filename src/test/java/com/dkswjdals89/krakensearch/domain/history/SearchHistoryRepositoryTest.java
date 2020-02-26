@@ -35,12 +35,7 @@ public class SearchHistoryRepositoryTest {
     Account requestAccount;
 
     @AfterEach
-    public void eachHistoryCleanup() {
-        searchHistoryRepository.deleteAll();
-    }
-
-    @AfterEach
-    public void accountCleanup() {
+    public void afterCleanup() {
         searchHistoryRepository.deleteAll();
         accountRepository.deleteAll();
     }

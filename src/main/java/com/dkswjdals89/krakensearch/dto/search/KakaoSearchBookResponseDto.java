@@ -1,10 +1,11 @@
-package com.dkswjdals89.krakensearch.dto;
+package com.dkswjdals89.krakensearch.dto.search;
 
-import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
+import com.dkswjdals89.krakensearch.dto.BasePagingListResponseDto;
 import com.dkswjdals89.krakensearch.utils.PagingUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Data
 public class KakaoSearchBookResponseDto {
     @JsonProperty("meta")
@@ -24,6 +26,7 @@ public class KakaoSearchBookResponseDto {
 
     @AllArgsConstructor
     @NoArgsConstructor
+    @Builder
     @Data
     public static class Documents {
         private String url;
@@ -72,6 +75,7 @@ public class KakaoSearchBookResponseDto {
 
     @AllArgsConstructor
     @NoArgsConstructor
+    @Builder
     @Data
     public static class Meta {
         @JsonProperty("total_count")

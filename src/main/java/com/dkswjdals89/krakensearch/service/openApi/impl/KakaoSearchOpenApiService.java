@@ -4,8 +4,8 @@ import com.dkswjdals89.krakensearch.config.properties.openApi.KakaoOpenApiProper
 import com.dkswjdals89.krakensearch.constant.KakaoSearchApiPath;
 import com.dkswjdals89.krakensearch.constant.OpenApiType;
 import com.dkswjdals89.krakensearch.dto.BasePagingListResponseDto;
-import com.dkswjdals89.krakensearch.dto.BookDto;
-import com.dkswjdals89.krakensearch.dto.KakaoSearchBookResponseDto;
+import com.dkswjdals89.krakensearch.dto.search.BookDto;
+import com.dkswjdals89.krakensearch.dto.search.KakaoSearchBookResponseDto;
 import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 import com.dkswjdals89.krakensearch.service.openApi.SearchOpenApiService;
 import lombok.RequiredArgsConstructor;

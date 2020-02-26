@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
@@ -14,6 +15,7 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -44,6 +46,24 @@ public class AccountRepositoryTest {
             Optional<Account> account = accountRepository.findById(createdAccount.getId());
 
             assertThat(account, notNullValue());
+        }
+
+        @Test
+        @DisplayName("이미 해당 userId로 등록된 계정이 존재하는 경우, 오류를 반환해야 한다.")
+        public void insertDuplicateTest() {
+            String userId = "dkswjdals89";
+            String password = "dkswjdals89!@";
+
+            accountRepository.save(Account.builder()
+                    .userId(userId)
+                    .password(password)
+                    .build());
+            DataAccessException exception = assertThrows(DataAccessException.class, () -> accountRepository.save(Account.builder()
+                    .userId(userId)
+                    .password(password)
+                    .build()));
+
+            assertThat(exception, notNullValue());
         }
     }
 

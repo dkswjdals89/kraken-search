@@ -1,7 +1,7 @@
 package com.dkswjdals89.krakensearch.web;
 
 import com.dkswjdals89.krakensearch.dto.BasePagingListResponseDto;
-import com.dkswjdals89.krakensearch.dto.BookDto;
+import com.dkswjdals89.krakensearch.dto.search.BookDto;
 import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 import com.dkswjdals89.krakensearch.service.search.SearchService;
 import lombok.RequiredArgsConstructor;

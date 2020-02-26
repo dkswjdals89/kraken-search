@@ -4,7 +4,7 @@ import com.dkswjdals89.krakensearch.annotation.SearchHistoryType;
 import com.dkswjdals89.krakensearch.constant.OpenApiType;
 import com.dkswjdals89.krakensearch.constant.SearchType;
 import com.dkswjdals89.krakensearch.dto.BasePagingListResponseDto;
-import com.dkswjdals89.krakensearch.dto.BookDto;
+import com.dkswjdals89.krakensearch.dto.search.BookDto;
 import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 import com.dkswjdals89.krakensearch.service.openApi.SearchOpenApiService;
 import lombok.RequiredArgsConstructor;

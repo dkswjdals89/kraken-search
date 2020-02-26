@@ -18,10 +18,10 @@ public class Account extends BaseTimeEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "TEXT", unique = true)
+    @Column(unique = true, length = 24)
     private String userId;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(nullable = false, length = 150)
     private String password;
 
     @Builder.Default

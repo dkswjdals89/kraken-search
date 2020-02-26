@@ -46,6 +46,9 @@ public class AccountService {
         Account createdAccount = accountRepository.save(Account.builder()
                 .userId(requestDto.getUserId())
                 .password(passwordEncoder.encode(requestDto.getPassword()))
+                .email(requestDto.getEmail())
+                .lastName(requestDto.getLastName())
+                .firstName(requestDto.getFirstName())
                 .role(AccountRole.USER) //  회원 가입시 기본으로 유저 권한을 부여한다.
                 .build());
 

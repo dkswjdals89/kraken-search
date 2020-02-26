@@ -20,4 +20,8 @@ public class AccountSignUpRequestDto {
     @NotEmpty(message = "Required data")
     @Size(min = 6, max = 20, message = "Password Length must be in range({min} ~ {max})")
     private String password;
+
+    private String email;
+    private String firstName;
+    private String lastName;
 }

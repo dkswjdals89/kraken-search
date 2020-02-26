@@ -4,8 +4,8 @@ import com.dkswjdals89.krakensearch.config.properties.openApi.NaverOpenApiProper
 import com.dkswjdals89.krakensearch.constant.NaverSearchApiPath;
 import com.dkswjdals89.krakensearch.constant.OpenApiType;
 import com.dkswjdals89.krakensearch.dto.BasePagingListResponseDto;
-import com.dkswjdals89.krakensearch.dto.BookDto;
-import com.dkswjdals89.krakensearch.dto.NaverSearchBookResponseDto;
+import com.dkswjdals89.krakensearch.dto.search.BookDto;
+import com.dkswjdals89.krakensearch.dto.search.NaverSearchBookResponseDto;
 import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 import com.dkswjdals89.krakensearch.service.openApi.SearchOpenApiService;
 import lombok.RequiredArgsConstructor;
