@@ -1,0 +1,77 @@
+> const userId = "dd";
+
+### 회원 가입 API
+POST {{host}}/v1/account/signup
+Content-Type: application/json
+
+{
+  "userId": {{userId}},
+  "password": {{userPassword}}
+}
+
+> {%
+client.test("응답 status 코드가 No Content(204)로 응답되어야 한다.", function() {
+  client.assert(response.status === 204, "응답 코드가 No Content(204)가 아닙니다.");
+});
+ %}
+
+### 계정 로그인 API
+POST {{host}}/v1/account/signin
+Content-Type: application/json
+
+{
+  "userId": {{userId}},
+  "password": {{userPassword}}
+}
+
+> {%
+client.test("응답 status 코드가 Success(200)로 응답이 되어야 한다.", function() {
+  client.assert(response.status === 200, "응답 코드가 Success(200)이 아닙니다.");
+});
+
+client.test("응답 결과 body에 JWT token 값이 존재해야 한다.", function() {
+  client.assert(response.body.token.isEmpty() === false, "응답 바디에 `token`값이 존재하지 않습니다.")
+});
+client.global.set('jwt-token', response.body.token);
+ %}
+
+### 책 검색
+GET {{host}}/v1/search/book?keyword=스프링&page=1&size=10
+Authorization: Bearer {{jwt-token}}
+
+> {%
+client.test("응답 status 코드가 Success(200)로 응답되어야 한다.", function() {
+  client.assert(response.status === 200, "응답 코드가 Success(200)이 아닙니다.");
+});
+client.test("응답 바디에 items를 반환해야 한다.", function() {
+  client.assert(response.body.hasOwnProperty("items"), "응답값에 items가 없습니다.");
+});
+ %}
+
+### 검색 히스토리 조회
+GET {{host}}/v1/history/search?page=1&size10
+Authorization: Bearer {{jwt-token}}
+
+> {%
+client.test("응답 status 코드가 Success(200)로 응답되어야 한다.", function() {
+  client.assert(response.status === 200, "응답 코드가 Success(200)이 아닙니다.");
+});
+client.test("응답 바디에 items를 반환해야 한다.", function() {
+  client.assert(response.body.hasOwnProperty("items"), "응답값에 items가 없습니다.");
+});
+ %}
+
+### 검색 키워드 Top 10 조회
+GET {{host}}/v1/statistics/popularKeyword
+Authorization: Bearer {{jwt-token}}
+
+> {%
+client.test("응답 status 코드가 Success(200)로 응답되어야 한다.", function() {
+  client.assert(response.status === 200, "응답 코드가 Success(200)이 아닙니다.");
+});
+client.test("응답 바디에 items를 반환해야 한다.", function() {
+  client.assert(response.body.hasOwnProperty("items"), "응답값에 items가 없습니다.");
+});
+ %}
+
+###
