@@ -1,8 +1,8 @@
 package com.dkswjdals89.krakensearch.aop;
 
 import com.dkswjdals89.krakensearch.annotation.SearchHistoryType;
-import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 import com.dkswjdals89.krakensearch.dto.history.CreateSearchHistoryRequestDto;
+import com.dkswjdals89.krakensearch.dto.search.SearchRequestDto;
 import com.dkswjdals89.krakensearch.service.history.SearchHistoryService;
 import com.dkswjdals89.krakensearch.service.statistics.SearchRankingService;
 import lombok.RequiredArgsConstructor;

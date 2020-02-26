@@ -2,7 +2,7 @@ package com.dkswjdals89.krakensearch.service.account;
 
 import com.dkswjdals89.krakensearch.domain.account.Account;
 import com.dkswjdals89.krakensearch.domain.account.AccountRepository;
-import com.dkswjdals89.krakensearch.dto.account.AccountDetailDto;
+import com.dkswjdals89.krakensearch.dto.account.AccountPrincipal;
 import com.dkswjdals89.krakensearch.exception.ServiceError;
 import com.dkswjdals89.krakensearch.exception.ServiceException;
 import org.junit.jupiter.api.BeforeEach;
@@ -82,30 +82,36 @@ public class AccountDetailServiceTest {
         @Test
         @DisplayName("요청 ID에 대한 캐싱 데이터가 존재한다면, DB조회를 하지 않아야 한다.")
         public void existCacheNotCallMethod() {
-            String accountId = "1";
+            Account account = Account.builder()
+                    .id(1L)
+                    .userId("dkswjdals89")
+                    .password("dkswjdals89!@")
+                    .build();
             cacheManager.getCache("accountDetail")
-                    .put(accountId, AccountDetailDto.builder()
-                            .id(Long.valueOf(accountId))
-                            .build());
+                    .put(account.getId(), AccountPrincipal.builder().account(account).build());
 
-            accountDetailService.loadUserByUsername(accountId);
+            accountDetailService.loadUserByUsername(account.getId().toString());
             verify(accountRepository, times(0))
-                    .findById(Long.valueOf(accountId));
+                    .findById(account.getId());
         }
 
         @Test
         @DisplayName("요청 ID에 대한 캐싱 데이터가 존재한다면, 캐싱된 데이터를 반환해야 한다.")
-        public void existCahceReturnCachingData() {
-            String accountId = "1";
-            AccountDetailDto expectedAccountDetail = AccountDetailDto.builder()
-                    .id(Long.valueOf(accountId))
+        public void existCacheReturnCachingData() {
+            Account account = Account.builder()
+                    .id(1L)
+                    .userId("dkswjdals89")
+                    .password("dkswjdals89!@")
+                    .build();
+            AccountPrincipal expectedAccountPrincipal = AccountPrincipal.builder()
+                    .account(account)
                     .build();
 
             cacheManager.getCache("accountDetail")
-                    .put(accountId, expectedAccountDetail);
+                    .put(account.getId(), expectedAccountPrincipal);
 
-            UserDetails returnData = accountDetailService.loadUserByUsername(accountId);
-            assertThat(returnData.getUsername(), equalTo(expectedAccountDetail.getUsername()));
+            UserDetails returnData = accountDetailService.loadUserByUsername(account.getId().toString());
+            assertThat(returnData.getUsername(), equalTo(expectedAccountPrincipal.getUsername()));
         }
     }
 }

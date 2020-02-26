@@ -1,7 +1,10 @@
 package com.dkswjdals89.krakensearch.dto.history;
 
 import com.dkswjdals89.krakensearch.constant.SearchType;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @AllArgsConstructor

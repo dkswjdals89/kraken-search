@@ -2,7 +2,7 @@ package com.dkswjdals89.krakensearch.service.account;
 
 import com.dkswjdals89.krakensearch.domain.account.Account;
 import com.dkswjdals89.krakensearch.domain.account.AccountRepository;
-import com.dkswjdals89.krakensearch.dto.account.AccountDetailDto;
+import com.dkswjdals89.krakensearch.dto.account.AccountPrincipal;
 import com.dkswjdals89.krakensearch.exception.ServiceError;
 import com.dkswjdals89.krakensearch.exception.ServiceException;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +30,6 @@ public class AccountDetailService implements UserDetailsService {
         log.debug("Request Load User - " + accountId);
          Optional<Account> account = accountRepository.findById(Long.valueOf(accountId));
          account.orElseThrow(() -> new ServiceException(ServiceError.NOT_FOUND_ACCOUNT, "사용자 계정을 찾을수 없습니다."));
-         return new AccountDetailDto(account.get());
+         return new AccountPrincipal(account.get());
     }
 }

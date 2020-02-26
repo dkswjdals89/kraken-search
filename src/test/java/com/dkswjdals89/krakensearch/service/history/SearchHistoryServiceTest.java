@@ -38,7 +38,9 @@ public class SearchHistoryServiceTest {
     @Test
     @DisplayName("검색 요청 히스토리를 데이터 베이스에 저장해야 한다.")
     public void createSearchHistoryUseRepository() {
-        Account requestAccount = Account.builder().id((long) 1).build();
+        Account requestAccount = Account.builder()
+                .id(1L)
+                .build();
         String searchKeyword = "어린왕자";
         SearchType searchType = SearchType.BOOK;
 
@@ -51,7 +53,9 @@ public class SearchHistoryServiceTest {
                 .thenReturn(new AccountDetailDto(requestAccount));
         when(searchHistoryRepository.save(any()))
                 .thenReturn(SearchHistory.builder()
-                .id(1L).build());
+                        .id(1L)
+                        .account(requestAccount)
+                        .build());
 
         ArgumentCaptor<SearchHistory> argument = ArgumentCaptor.forClass(SearchHistory.class);
         searchHistoryService.createSearchHistory(requestDto);

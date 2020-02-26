@@ -4,14 +4,16 @@ import com.dkswjdals89.krakensearch.domain.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Getter
+@Setter
 @Entity(name = "tlb_account")
-public class Account extends BaseTimeEntity {
+public class Account extends BaseTimeEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

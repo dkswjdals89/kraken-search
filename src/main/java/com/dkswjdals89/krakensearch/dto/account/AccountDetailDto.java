@@ -7,20 +7,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class AccountDetailDto implements UserDetails {
+public class AccountDetailDto {
     private long id;
     private String userId;
     @JsonIgnore
@@ -44,40 +38,5 @@ public class AccountDetailDto implements UserDetails {
         this.modifiedDate = account.getModifiedDate();
         this.activated = account.getActivated();
         this.role = account.getRole();
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-
-        if (this.role != null) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(this.role.getKey()));
-        }
-        return grantedAuthorities;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.userId;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return this.activated;
     }
 }

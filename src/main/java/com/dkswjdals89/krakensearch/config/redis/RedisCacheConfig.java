@@ -23,14 +23,12 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
     @Bean
     @Override
     public CacheManager cacheManager() {
-        ClassLoader loader = this.getClass().getClassLoader();
-        JdkSerializationRedisSerializer jdkSerializer = new JdkSerializationRedisSerializer(loader);
-        RedisSerializationContext.SerializationPair<Object> pair = RedisSerializationContext.SerializationPair.fromSerializer(jdkSerializer);
-
         RedisCacheConfiguration configuration = RedisCacheConfiguration
                 .defaultCacheConfig()
                 .disableCachingNullValues()
-                .serializeValuesWith(pair)
+                .serializeValuesWith(RedisSerializationContext
+                        .SerializationPair
+                        .fromSerializer(new JdkSerializationRedisSerializer(this.getClass().getClassLoader())))
                 .entryTtl(Duration.ofMinutes(5L));
 
         return RedisCacheManager

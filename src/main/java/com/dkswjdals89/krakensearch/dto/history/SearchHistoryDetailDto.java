@@ -1,8 +1,8 @@
 package com.dkswjdals89.krakensearch.dto.history;
 
 import com.dkswjdals89.krakensearch.constant.SearchType;
-import com.dkswjdals89.krakensearch.domain.account.Account;
 import com.dkswjdals89.krakensearch.domain.history.SearchHistory;
+import com.dkswjdals89.krakensearch.dto.account.AccountDetailDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class SearchHistoryDetailDto {
     private Long id;
 
-    private Account account;
+    private AccountDetailDto account;
 
     private SearchType searchType;
 
@@ -29,7 +29,7 @@ public class SearchHistoryDetailDto {
 
     public SearchHistoryDetailDto(SearchHistory searchHistory) {
         this.id = searchHistory.getId();
-        this.account = searchHistory.getAccount();
+        this.account = new AccountDetailDto(searchHistory.getAccount());
         this.searchType = searchHistory.getSearchType();
         this.searchKeyword = searchHistory.getSearchKeyword();
         this.createdDate = searchHistory.getCreatedDate();

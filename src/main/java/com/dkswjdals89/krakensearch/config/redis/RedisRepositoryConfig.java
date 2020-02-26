@@ -2,7 +2,6 @@ package com.dkswjdals89.krakensearch.config.redis;
 
 import com.dkswjdals89.krakensearch.config.properties.RedisProperties;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
