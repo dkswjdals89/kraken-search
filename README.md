@@ -189,6 +189,33 @@ GET /v1/history/search
 |          totalPage         | Number |                총 페이지 수               |          |        |
 |         totalCount         | Number |                총 아이템 수               |          |        |
 
+- response example
+```json
+{
+    "items": [
+        {
+            "id": 1,
+            "account": {
+                "id": 1,
+                "userId": "dkswjdals89",
+                "role": "USER",
+                "createdDate": "2020-02-26 01:04:17",
+                "modifiedDate": "2020-02-26 01:04:17"
+            },
+            "searchType": "BOOK",
+            "searchKeyword": "스프링",
+            "createdDate": "2020-02-26 01:04:40",
+            "modifiedDate": "2020-02-26 01:04:40"
+        }
+    ],
+    "page": 1,
+    "count": 1,
+    "size": 10,
+    "totalPage": 1,
+    "totalCount": 1
+}
+```
+
 
 ### 검색 키워드 TOP 10
 사용자들이 검색한 인기 키워드 TOP 10 리스트를 반환합니다.
@@ -212,3 +239,52 @@ GET /v1/statistics/popularKeyword
 |      size     | Number | 요청 페이지 아이템 수 |          |        |
 |   totalPage   | Number |      총 페이지 수     |          |        |
 |   totalCount  | Number |      총 아이템 수     |          |        |
+
+- response example
+```json
+{
+    "items": [
+        {
+            "keyword": "코틀린",
+            "count": 10
+        },
+        {
+            "keyword": "effective java",
+            "count": 8
+        },
+        {
+            "keyword": "토비",
+            "count": 5
+        },
+        {
+            "keyword": "디자인 패턴",
+            "count": 4
+        },
+        {
+            "keyword": "메이븐",
+            "count": 3
+        },
+        {
+            "keyword": "node.js",
+            "count": 3
+        },
+        {
+            "keyword": "어린왕자",
+            "count": 2
+        },
+        {
+            "keyword": "그래들",
+            "count": 2
+        },
+        {
+            "keyword": "aws",
+            "count": 2
+        },
+        {
+            "keyword": "스프링",
+            "count": 1
+        }
+    ],
+    "count": 10
+}
+```
